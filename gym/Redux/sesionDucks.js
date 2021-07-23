@@ -26,18 +26,20 @@ export const registrarUsuario = (user) => (dispatch, getState) => {
       console.log(error);
     });
 };
-export const iniciarSesion = (user) => (dispatch, getState) => {
+export const iniciarSesion = (email, password) => (dispatch, getState) => {
   axios
-    .get('http://192.168.1.98:3000/api/login', {
-      user: user,
+    .post('http://192.168.1.98:3000/api/login', {
+      email: email,
+      password: password,
     })
     .then(function (response) {
       dispatch({ type: INICIAR_SESION, payload: response.data });
-      alert(response.data);
-      console.log(response);
+
+      if (response.status === 200) {
+        alert('Sesion iniciada con exito');
+      }
     })
     .catch(function (error) {
-      console.log(error);
-      alert(error.data);
+      alert('El email o la contraseña no es correcto');
     });
 };

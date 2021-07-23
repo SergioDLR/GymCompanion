@@ -15,11 +15,11 @@ const Login = () => {
     fechaDeNacimiento: '07-22-2021',
   };
   useEffect(() => {
-    dispatch(iniciarSesion(user));
+    //dispatch(iniciarSesion(user));
   }, []);
   return (
     <View>
-      <Text>FFFFF</Text>
+      <Text>Iniciar sesion</Text>
       <TextInput
         style={{ height: 40 }}
         placeholder='Ingresa aqui tu mail'
@@ -34,7 +34,7 @@ const Login = () => {
       />
       <Button
         onPress={() => {
-          dispatch(iniciarSesion(user));
+          dispatch(iniciarSesion(mail, password));
         }}
         title='Iniciar sesion'
       />
