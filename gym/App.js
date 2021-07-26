@@ -4,15 +4,18 @@ import { StyleSheet, Text, View } from 'react-native';
 import Login from './Components/login';
 import { Provider } from 'react-redux';
 import generateStore from './Redux/store';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import StartScreen from './Components/startScreen';
 export default function App() {
   const store = generateStore();
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your affpp!</Text>
-        <StatusBar style='auto' />
-        <Login></Login>
-      </View>
+      <SafeAreaProvider>
+        <View style={styles.container}>
+          <StatusBar style='auto' />
+          <StartScreen></StartScreen>
+        </View>
+      </SafeAreaProvider>
     </Provider>
   );
 }
