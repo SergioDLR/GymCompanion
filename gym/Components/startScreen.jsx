@@ -10,7 +10,10 @@ const StartScreen = ({ navigation }) => {
         title='iniciar sesion'
         onPress={() => navigation.navigate('Login')}
       ></Button>
-      <Button title='Registrate'></Button>
+      <Button
+        title='Registrate'
+        onPress={() => navigation.navigate('Register')}
+      ></Button>
     </SafeAreaView>
   );
 };
