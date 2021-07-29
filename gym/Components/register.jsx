@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import sGlobal from '../Styles/userStyles';
 import { registrarUsuario } from '../Redux/sesionDucks';
 const Register = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Register = ({ navigation }) => {
     setMode(currentMode);
   };
   return (
-    <View>
+    <View style={sGlobal.container}>
       <Input
         placeholder='ingresa tu nombre'
         leftIcon={{ type: 'font-awesome', name: 'lock' }}

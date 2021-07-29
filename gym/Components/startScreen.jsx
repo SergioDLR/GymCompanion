@@ -1,9 +1,11 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
+import sGlobal from '../Styles/userStyles';
 import { Text, Button } from 'react-native-elements';
+
 const StartScreen = ({ navigation }) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={sGlobal.container}>
       <Text h1>Bienvenido </Text>
       <Button
         style={styles.mt2}
