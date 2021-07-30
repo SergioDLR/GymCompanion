@@ -4,23 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registrarUsuario, iniciarSesion } from '../Redux/sesionDucks';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
-const Login = () => {
+import styles from '../styles/main';
+const Login = ({ navigation }) => {
   const sesion = useSelector((state) => state.sesion);
   const [password, setPassword] = useState('');
   const [mail, setMail] = useState('');
   const dispatch = useDispatch();
-  const user = {
-    name: 'sergio',
-    surname: 'lll',
-    email: 'lopez@hotmail.com',
-    password: '1231232',
-    fechaDeNacimiento: '07-22-2021',
-  };
-  useEffect(() => {
-    //dispatch(iniciarSesion(user));
-  }, []);
+  console.log(styles);
   return (
-    <View>
+    <View style={styles.Container}>
       <Text>Iniciar sesion</Text>
 
       <Input
@@ -38,7 +30,7 @@ const Login = () => {
 
       <Button
         onPress={() => {
-          dispatch(iniciarSesion(mail, password));
+          dispatch(iniciarSesion(mail, password, navigation));
         }}
         title='Iniciar sesion'
       />

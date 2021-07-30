@@ -26,20 +26,22 @@ export const registrarUsuario = (user) => (dispatch, getState) => {
       console.log(error);
     });
 };
-export const iniciarSesion = (email, password) => (dispatch, getState) => {
-  axios
-    .post('http://192.168.1.98:3000/api/login', {
-      email: email,
-      password: password,
-    })
-    .then(function (response) {
-      dispatch({ type: INICIAR_SESION, payload: response.data });
+export const iniciarSesion =
+  (email, password, navigation) => (dispatch, getState) => {
+    axios
+      .post('http://192.168.1.98:3000/api/login', {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        dispatch({ type: INICIAR_SESION, payload: response.data });
 
-      if (response.status === 200) {
-        alert('Sesion iniciada con exito');
-      }
-    })
-    .catch(function (error) {
-      alert('El email o la contraseña no es correcto');
-    });
-};
+        if (response.status === 200) {
+          alert('Sesion iniciada con exito');
+          navigation.navigate('HomeLoged');
+        }
+      })
+      .catch(function (error) {
+        alert('El email o la contraseña no es correcto');
+      });
+  };
