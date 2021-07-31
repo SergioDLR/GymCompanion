@@ -13,11 +13,6 @@ const Register = ({ navigation }) => {
 
   const [constraseña, editContraseña] = useState('');
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
   function enviarRegistro() {
     if (nombre.length <= 1) {
       alert('Ingresa un nombre valido');
@@ -34,7 +29,7 @@ const Register = ({ navigation }) => {
         email: mail,
         password: constraseña,
       };
-      dispatch(registrarUsuario(user));
+      dispatch(registrarUsuario(user, navigation));
     }
   }
   const showDatepicker = () => {
