@@ -1,12 +1,13 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-elements';
+import styles from '../styles/main';
 const StartScreen = ({ navigation }) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.Container}>
       <Text h1>Bienvenido </Text>
       <Button
-        style={styles.mt2}
+        style={stylesMain.mt2}
         title='iniciar sesion'
         onPress={() => navigation.navigate('Login')}
       ></Button>
@@ -17,9 +18,9 @@ const StartScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-const styles = StyleSheet.create({
+const stylesMain = StyleSheet.create({
   mt2: {
-    marginBottom: '2px',
+    marginBottom: '23px',
   },
 });
 export default StartScreen;

@@ -20,10 +20,13 @@ export const registrarUsuario = (user) => (dispatch, getState) => {
       user: user,
     })
     .then(function (response) {
-      dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
+      if (response.status === 200) {
+        alert('Cuenta creada con exito');
+        dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
+      }
     })
     .catch(function (error) {
-      console.log(error);
+      alert(error.response.data.error);
     });
 };
 export const iniciarSesion =

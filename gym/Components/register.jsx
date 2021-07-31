@@ -3,16 +3,14 @@ import { View } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
 import { useDispatch } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import styles from '../styles/main';
 import { registrarUsuario } from '../Redux/sesionDucks';
 const Register = ({ navigation }) => {
   const dispatch = useDispatch();
   const [nombre, editNombre] = useState('');
   const [apellido, editApellido] = useState('');
   const [mail, editMail] = useState('');
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+
   const [constraseña, editContraseña] = useState('');
 
   const onChange = (event, selectedDate) => {
@@ -21,16 +19,23 @@ const Register = ({ navigation }) => {
     setDate(currentDate);
   };
   function enviarRegistro() {
-    console.log('react');
-
-    const user = {
-      name: nombre,
-      surname: apellido,
-      email: mail,
-      password: constraseña,
-      fechaDeNacimiento: date,
-    };
-    dispatch(registrarUsuario(user));
+    if (nombre.length <= 1) {
+      alert('Ingresa un nombre valido');
+    } else if (apellido.length <= 1) {
+      alert('Ingresa un apellido valido');
+    } else if (constraseña.length <= 6) {
+      alert('ingresa una contraseña valida');
+    } else if (mail.length <= 6) {
+      alert('ingresa un mail valido');
+    } else {
+      const user = {
+        name: nombre,
+        surname: apellido,
+        email: mail,
+        password: constraseña,
+      };
+      dispatch(registrarUsuario(user));
+    }
   }
   const showDatepicker = () => {
     showMode('date');
@@ -40,43 +45,35 @@ const Register = ({ navigation }) => {
     setMode(currentMode);
   };
   return (
-    <View>
+    <View style={styles.Container}>
       <Input
-        placeholder='ingresa tu nombre'
-        leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        placeholder='Ingresa tu nombre'
+        leftIcon={{ type: 'font-awesome', name: 'users' }}
         onChangeText={(nombre) => editNombre(nombre)}
         defaultValue={nombre}
       />
       <Input
-        placeholder='ingresa tu apellido'
-        leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        placeholder='Ingresa tu apellido'
+        leftIcon={{ type: 'font-awesome', name: 'user' }}
         onChangeText={(apellido) => editApellido(apellido)}
         defaultValue={apellido}
       />
       <Input
-        placeholder='ingresa tu contraseña'
+        placeholder='Ingresa una contraseña'
         leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        secureTextEntry={true}
         onChangeText={(constraseña) => editContraseña(constraseña)}
         defaultValue={constraseña}
       />
 
       <Input
-        placeholder='ingresa tu mail'
-        leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        placeholder='Ingresa tu mail'
+        leftIcon={{ type: 'font-awesome', name: 'envelope' }}
         onChangeText={(mail) => editMail(mail)}
         defaultValue={mail}
+        keyboardType='email-address'
       />
-      <Button onPress={showDatepicker} title='agregar fecha de nacimiento' />
-      {show && (
-        <DateTimePicker
-          testID='dateTimePicker'
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display='default'
-          onChange={onChange}
-        />
-      )}
+
       <Button title='Registrar' onPress={() => enviarRegistro()}></Button>
     </View>
   );

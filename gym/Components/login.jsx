@@ -10,7 +10,6 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [mail, setMail] = useState('');
   const dispatch = useDispatch();
-  console.log(styles);
   return (
     <View style={styles.Container}>
       <Text>Iniciar sesion</Text>
@@ -24,6 +23,7 @@ const Login = ({ navigation }) => {
       <Input
         placeholder='ingresa tu contraseña'
         leftIcon={{ type: 'font-awesome', name: 'lock' }}
+        secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
         defaultValue={password}
       />
