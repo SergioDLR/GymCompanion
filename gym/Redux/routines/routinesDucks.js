@@ -1,15 +1,19 @@
 import axios from 'axios';
 const configDuck = {
   routines: {},
+  seleccionada: {},
 };
 const CARGAR_RUTINAS = 'CARGAR_RUTINAS';
 const CREAR_RUTINA = 'CREAR_RUTINA';
+const SELECCIONAR_RUTINA = 'SELECCIONAR_RUTINA';
 export default function reducerRoutine(state = configDuck, action) {
   switch (action.type) {
     case CARGAR_RUTINAS:
       return { ...state, routines: action.payload };
     case CREAR_RUTINA:
       return { ...state, routines: action.payload };
+    case SELECCIONAR_RUTINA:
+      return { ...state, seleccionada: action.payload };
     default:
       return state;
   }
@@ -58,4 +62,11 @@ export const crearRutina = (name, permisions) => (dispatch, getState) => {
       console.log(error.response.data.error);
       alert(error.response.data.error);
     });
+};
+
+export const seleccionarRutina = (seleccionada) => (dispatch) => {
+  dispatch({
+    type: SELECCIONAR_RUTINA,
+    payload: seleccionada,
+  });
 };

@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './usuarioLogeado/home';
+import RutinaSeleccionada from './usuarioLogeado/elementos/rutina';
 import Login from './login';
 import StartScreen from './startScreen';
 import Register from './register';
@@ -26,6 +27,10 @@ const StackNavigation = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name='rutinaSeleccionada'
+          component={RutinaSeleccionada}
         />
       </Stack.Navigator>
     </NavigationContainer>

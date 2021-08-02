@@ -6,7 +6,7 @@ import { cargarRutinas, crearRutina } from '../../Redux/routines/routinesDucks';
 import gStyles from '../../styles/main';
 import Rutina from './elementos/rutinas';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nombreRutina, setNombreRutina] = useState('');
   const dispatch = useDispatch();
@@ -61,7 +61,11 @@ const Home = () => {
       <Text>Tus ultimos entrenamientos</Text>
       {rutinas.length > 0 &&
         rutinas.map((element) => (
-          <Rutina item={element} key={element._id}></Rutina>
+          <Rutina
+            item={element}
+            key={element._id}
+            navigation={navigation}
+          ></Rutina>
         ))}
     </View>
   );
