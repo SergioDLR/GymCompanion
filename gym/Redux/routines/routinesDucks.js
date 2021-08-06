@@ -6,6 +6,7 @@ const configDuck = {
 const CARGAR_RUTINAS = 'CARGAR_RUTINAS';
 const CREAR_RUTINA = 'CREAR_RUTINA';
 const SELECCIONAR_RUTINA = 'SELECCIONAR_RUTINA';
+const CREAR_DIA = 'CREAR_DIA';
 export default function reducerRoutine(state = configDuck, action) {
   switch (action.type) {
     case CARGAR_RUTINAS:
@@ -13,6 +14,8 @@ export default function reducerRoutine(state = configDuck, action) {
     case CREAR_RUTINA:
       return { ...state, routines: action.payload };
     case SELECCIONAR_RUTINA:
+      return { ...state, seleccionada: action.payload };
+    case CREAR_DIA:
       return { ...state, seleccionada: action.payload };
     default:
       return state;
@@ -63,7 +66,17 @@ export const crearRutina = (name, permisions) => (dispatch, getState) => {
       alert(error.response.data.error);
     });
 };
-
+export const crearDia =
+  (name, permisions, id) => async (dispatch, getState) => {
+    const data = await axios.post(
+      'http://192.168.1.98:3000/api/routinesDay/' + id,
+      { nombre: name },
+      {
+        headers: { 'auth-token': permisions },
+      }
+    );
+    dispatch({ type: CREAR_DIA, payload: data });
+  };
 export const seleccionarRutina = (seleccionada) => (dispatch) => {
   dispatch({
     type: SELECCIONAR_RUTINA,
