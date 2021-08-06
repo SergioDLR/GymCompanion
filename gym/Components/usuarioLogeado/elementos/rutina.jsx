@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Modal } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { crearDia } from '../../../Redux/routines/routinesDucks';
+import DiaDeRutina from './diaDeRutina';
 const RutinaSeleccionada = () => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,6 +46,10 @@ const RutinaSeleccionada = () => {
           </View>
         </View>
       </Modal>
+      {rutina.entrenamientoDias.length > 0 &&
+        rutina.entrenamientoDias.map((e) => (
+          <DiaDeRutina item={e}></DiaDeRutina>
+        ))}
     </View>
   );
 };

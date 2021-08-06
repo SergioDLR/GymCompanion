@@ -75,7 +75,7 @@ export const crearDia =
         headers: { 'auth-token': permisions },
       }
     );
-    dispatch({ type: CREAR_DIA, payload: data });
+    dispatch({ type: CREAR_DIA, payload: data.data.rutinaGuardada });
   };
 export const seleccionarRutina = (seleccionada) => (dispatch) => {
   dispatch({
