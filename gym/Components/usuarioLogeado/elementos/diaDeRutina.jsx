@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text,TouchableOpacity } from 'react-native';
 const DiaDeRutina = (props) => {
   return (
     <View>
       <Text>{props.item.nombre}</Text>
+      <TouchableOpacity>Agregar ejercicio</TouchableOpacity>
     </View>
   );
 };
