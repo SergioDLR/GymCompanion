@@ -1,11 +1,12 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from './usuarioLogeado/home';
-import RutinaSeleccionada from './usuarioLogeado/elementos/rutina';
-import Login from './login';
-import StartScreen from './startScreen';
-import Register from './register';
-import * as React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "./usuarioLogeado/home";
+import RutinaSeleccionada from "./usuarioLogeado/elementos/rutina";
+import DiaDeRutinaDisplay from "./usuarioLogeado/elementos/diaDeEntrenamiento";
+import Login from "./login";
+import StartScreen from "./startScreen";
+import Register from "./register";
+import * as React from "react";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -13,25 +14,26 @@ const StackNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name='Home'
+          name="Home"
           component={StartScreen}
           options={{
             headerShown: false,
           }}
         />
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='Register' component={Register} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen
-          name='HomeLoged'
+          name="HomeLoged"
           component={Home}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name='rutinaSeleccionada'
+          name="rutinaSeleccionada"
           component={RutinaSeleccionada}
         />
+        <Stack.Screen name="Ejercicios" component={DiaDeRutinaDisplay} />
       </Stack.Navigator>
     </NavigationContainer>
   );

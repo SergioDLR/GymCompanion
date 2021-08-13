@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { crearEjercicio } from "../../../Redux/routines/routinesDucks";
+import { eliminarDiaDeRutina } from "../../../Redux/routines/routinesDucks";
+import { seleccionarDia } from "../../../Redux/routines/routinesDucks";
 const DiaDeRutina = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nombreEjercicio, setNombreEjercicio] = useState("");
@@ -13,6 +16,7 @@ const DiaDeRutina = (props) => {
 
   function onSubmit() {
     alert("ejercicio creado");
+    setModalVisible(!modalVisible);
     dispatch(
       crearEjercicio(
         nombreEjercicio,
@@ -23,10 +27,27 @@ const DiaDeRutina = (props) => {
       )
     );
   }
+  function abrirDia() {
+    dispatch(seleccionarDia(props.item));
+    props.navigation.navigate("Ejercicios");
+  }
   return (
     <View>
+      <TouchableOpacity onPress={() => abrirDia()}>
+        <Text>abrir</Text>
+      </TouchableOpacity>
       <Text>{props.item.nombre}</Text>
-      <TouchableOpacity>Agregar ejercicio</TouchableOpacity>
+      <Button
+        icon={<Icon name="trash" size={15} color="white" />}
+        onPress={() =>
+          dispatch(
+            eliminarDiaDeRutina(props.item, props.item._id, sesion.data.token)
+          )
+        }
+      />
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Text>Agregar ejercicio</Text>
+      </TouchableOpacity>
       <Modal
         animationType="slide"
         transparent={true}
