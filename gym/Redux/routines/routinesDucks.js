@@ -1,12 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 const configDuck = {
   routines: {},
   seleccionada: {},
 };
-const CARGAR_RUTINAS = 'CARGAR_RUTINAS';
-const CREAR_RUTINA = 'CREAR_RUTINA';
-const SELECCIONAR_RUTINA = 'SELECCIONAR_RUTINA';
-const CREAR_DIA = 'CREAR_DIA';
+const CARGAR_RUTINAS = "CARGAR_RUTINAS";
+const CREAR_RUTINA = "CREAR_RUTINA";
+const SELECCIONAR_RUTINA = "SELECCIONAR_RUTINA";
+const CREAR_DIA = "CREAR_DIA";
+const CREAR_EJERCICIO = "CREAR_EJERCICIO";
 export default function reducerRoutine(state = configDuck, action) {
   switch (action.type) {
     case CARGAR_RUTINAS:
@@ -17,6 +18,8 @@ export default function reducerRoutine(state = configDuck, action) {
       return { ...state, seleccionada: action.payload };
     case CREAR_DIA:
       return { ...state, seleccionada: action.payload };
+    case CREAR_EJERCICIO:
+      return state;
     default:
       return state;
   }
@@ -24,8 +27,8 @@ export default function reducerRoutine(state = configDuck, action) {
 
 export const cargarRutinas = (permisions) => (dispatch, getState) => {
   axios
-    .get('http://192.168.1.98:3000/api/routines', {
-      headers: { 'auth-token': permisions },
+    .get("http://192.168.1.98:3000/api/routines", {
+      headers: { "auth-token": permisions },
     })
     .then(function (response) {
       dispatch({
@@ -40,16 +43,16 @@ export const cargarRutinas = (permisions) => (dispatch, getState) => {
 export const crearRutina = (name, permisions) => (dispatch, getState) => {
   axios
     .post(
-      'http://192.168.1.98:3000/api/routines',
+      "http://192.168.1.98:3000/api/routines",
       { name },
       {
-        headers: { 'auth-token': permisions },
+        headers: { "auth-token": permisions },
       }
     )
     .then(function (response) {
       axios
-        .get('http://192.168.1.98:3000/api/routines', {
-          headers: { 'auth-token': permisions },
+        .get("http://192.168.1.98:3000/api/routines", {
+          headers: { "auth-token": permisions },
         })
         .then(function (response) {
           dispatch({
@@ -69,14 +72,35 @@ export const crearRutina = (name, permisions) => (dispatch, getState) => {
 export const crearDia =
   (name, permisions, id) => async (dispatch, getState) => {
     const data = await axios.post(
-      'http://192.168.1.98:3000/api/routinesDay/' + id,
+      "http://192.168.1.98:3000/api/routinesDay/" + id,
       { nombre: name },
       {
-        headers: { 'auth-token': permisions },
+        headers: { "auth-token": permisions },
       }
     );
     dispatch({ type: CREAR_DIA, payload: data.data.rutinaGuardada });
   };
+
+export const crearEjercicio =
+  (nombre, permisions, id, repeticiones, series) => async (dispatch) => {
+    const ejercio = {
+      nombre,
+      repeticiones,
+      series,
+    };
+    const data = await axios.put(
+      "http://192.168.1.98:3000/api/routinesDay/" + id,
+      { ejercio },
+      {
+        headers: { "auth-token": permisions },
+      }
+    );
+    console.log(data);
+    dispatch({
+      type: CREAR_EJERCICIO,
+    });
+  };
+
 export const seleccionarRutina = (seleccionada) => (dispatch) => {
   dispatch({
     type: SELECCIONAR_RUTINA,
