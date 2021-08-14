@@ -13,6 +13,7 @@ const CREAR_EJERCICIO = "CREAR_EJERCICIO";
 const ELIMINAR_DIA = "ELIMINAR_DIA";
 const ELIMINAR_RUTINA = "ELIMINAR_RUTINA";
 const SELECCIONAR_DIA = "SELECCIONAR_DIA";
+const ELIMINAR_EJERCICIO = "ELIMINAR_EJERCICIO";
 export default function reducerRoutine(state = configDuck, action) {
   switch (action.type) {
     case CARGAR_RUTINAS:
@@ -31,6 +32,12 @@ export default function reducerRoutine(state = configDuck, action) {
       return { ...state, seleccionada: action.payload };
     case SELECCIONAR_DIA:
       return { ...state, seleccionarDia: action.payload };
+    case ELIMINAR_EJERCICIO:
+      return {
+        ...state,
+        seleccionarDia: action.payload,
+        seleccionada: action.payloadDos,
+      };
     default:
       return state;
   }
@@ -106,7 +113,6 @@ export const crearEjercicio =
         headers: { "auth-token": permisions },
       }
     );
-    console.log(data);
     dispatch({
       type: CREAR_EJERCICIO,
       payload: data.data.rutinasActualizadas,
@@ -116,12 +122,17 @@ export const crearEjercicio =
 export const eliminarEjercicio =
   (ejercicio, permisions, id) => async (dispatch) => {
     const data = await axios.delete(
-      "http://192.168.1.98:3000/api/routinesDay/ejercicio" + id,
-      { ejercicio },
+      "http://192.168.1.98:3000/api/routinesDay/ejercicio/" + id,
       {
+        data: ejercicio,
         headers: { "auth-token": permisions },
       }
     );
+    dispatch({
+      type: ELIMINAR_EJERCICIO,
+      payload: data.data.rutinaNueva,
+      payloadDos: data.data.rutinaSeleccionada,
+    });
   };
 
 export const eliminarDiaDeRutina =
