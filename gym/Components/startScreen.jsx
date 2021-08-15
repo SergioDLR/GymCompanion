@@ -35,7 +35,7 @@ const stylesMain = StyleSheet.create({
   mt2: {
     marginBottom: "23px",
     width: 250,
-    borderRadius: "5px",
+    borderRadius: 5,
   },
   main: {
     fontFamily: "Roboto",

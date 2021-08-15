@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { seleccionarRutina } from "../../../Redux/routines/routinesDucks";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Button } from "react-native-elements";
@@ -15,18 +15,18 @@ const Rutina = (props) => {
   return (
     <View>
       <TouchableOpacity onPress={() => abrirRutina()}>
-        <Card>
+        <Card containerStyle={{ borderRadius: 5 }}>
           <Card.Title>
             <Text>{props.item.name}</Text>
           </Card.Title>
+          <Button
+            icon={<Icon name="trash" size={15} color="white" />}
+            onPress={() =>
+              dispatch(eliminarRutina(props.item._id, sesion.data.token))
+            }
+          />
         </Card>
       </TouchableOpacity>
-      <Button
-        icon={<Icon name="trash" size={15} color="white" />}
-        onPress={() =>
-          dispatch(eliminarRutina(props.item._id, sesion.data.token))
-        }
-      />
     </View>
   );
 };
