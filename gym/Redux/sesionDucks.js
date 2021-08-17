@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 const configDuck = {
   sesion: {},
 };
-const REGISTRAR_USUARIO = 'REGISTRAR_USUARIO';
-const INICIAR_SESION = 'INICIAR_SESION';
+const REGISTRAR_USUARIO = "REGISTRAR_USUARIO";
+const INICIAR_SESION = "INICIAR_SESION";
 export default function reducerSesion(state = configDuck, action) {
   switch (action.type) {
     case REGISTRAR_USUARIO:
@@ -16,14 +16,14 @@ export default function reducerSesion(state = configDuck, action) {
 }
 export const registrarUsuario = (user, navigation) => (dispatch, getState) => {
   axios
-    .post('http://192.168.1.98:3000/api/auth', {
+    .post("http://192.168.1.98:3000/api/auth", {
       user: user,
     })
     .then(function (response) {
       if (response.status === 200) {
-        alert('Cuenta creada con exito');
+        alert("Cuenta creada con exito");
         dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
-        navigation.navigate('HomeLoged');
+        navigation.navigate("HomeLoged");
       }
     })
     .catch(function (error) {
@@ -31,9 +31,9 @@ export const registrarUsuario = (user, navigation) => (dispatch, getState) => {
     });
 };
 export const iniciarSesion =
-  (email, password, navigation) => (dispatch, getState) => {
+  (email, password, navigation, loadedState) => (dispatch, getState) => {
     axios
-      .post('http://192.168.1.98:3000/api/login', {
+      .post("http://192.168.1.98:3000/api/login", {
         email: email,
         password: password,
       })
@@ -41,11 +41,12 @@ export const iniciarSesion =
         dispatch({ type: INICIAR_SESION, payload: response.data });
 
         if (response.status === 200) {
-          alert('Sesion iniciada con exito');
-          navigation.navigate('HomeLoged');
+          //alert('Sesion iniciada con exito');
+          navigation.navigate("HomeLoged");
         }
       })
       .catch(function (error) {
-        alert('El email o la contraseña no es correcto');
+        loadedState(false);
+        alert("El email o la contraseña no es correcto");
       });
   };

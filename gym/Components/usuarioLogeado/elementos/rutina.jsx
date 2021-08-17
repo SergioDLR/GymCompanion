@@ -33,6 +33,7 @@ const RutinaSeleccionada = ({ navigation }) => {
               placeholder="Nombre dia de entrenamiento"
               onChangeText={(nombreRutina) => setNombreRutina(nombreRutina)}
             />
+
             <Button
               style={[styles.button, styles.buttonClose]}
               onPress={() => onSubmitDia()}
@@ -46,6 +47,7 @@ const RutinaSeleccionada = ({ navigation }) => {
           </View>
         </View>
       </Modal>
+
       {rutina.entrenamientoDias.length > 0 &&
         rutina.entrenamientoDias.map((e) => (
           <DiaDeRutina

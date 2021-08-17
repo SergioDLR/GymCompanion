@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#1C3775",
+    backgroundColor: "#34B6FA",
   },
   Container2: {
     flex: 1,
-    backgroundColor: "#1C3775",
+    backgroundColor: "#34B6FA",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 18,
+    color: "#000",
     paddingTop: 1,
     paddingBottom: 1,
   },

@@ -3,14 +3,23 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { registrarUsuario, iniciarSesion } from "../Redux/sesionDucks";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Text } from "react-native-elements";
+import { Input, Text, Button } from "react-native-elements";
+
 import styles from "../styles/main";
 
 const Login = ({ navigation }) => {
   const sesion = useSelector((state) => state.sesion);
+  const [cargando, setCargando] = useState(false);
   const [password, setPassword] = useState("");
   const [mail, setMail] = useState("");
   const dispatch = useDispatch();
+  function alerar(val) {
+    setCargando(val);
+  }
+  function logear(val) {
+    setCargando(val);
+    dispatch(iniciarSesion(mail, password, navigation, alerar));
+  }
   return (
     <SafeAreaView style={styles.Container}>
       <Text style={stylesMain.titulo}>Iniciar sesion en Gym Companion</Text>
@@ -31,14 +40,15 @@ const Login = ({ navigation }) => {
           defaultValue={password}
         />
       </View>
-      <TouchableOpacity
-        style={styles.button1}
-        onPress={() => {
-          dispatch(iniciarSesion(mail, password, navigation));
-        }}
-      >
-        <Text style={styles.textButton}>Ingresar</Text>
-      </TouchableOpacity>
+
+      <Button
+        buttonStyle={styles.button2}
+        onPress={() => logear(true)}
+        title={"ingresar"}
+        titleStyle={styles.textButton}
+        loadingProps={{ color: "black" }}
+        loading={cargando}
+      ></Button>
     </SafeAreaView>
   );
 };

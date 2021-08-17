@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Touchable,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { Button, Input, Text, Card, FAB } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,8 +22,9 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const rutinas = useSelector((state) => state.routines.routines);
   const sesion = useSelector((state) => state.sesion.sesion);
+  const [cargarRutinasLoading, setLoading] = useState(true);
   useEffect(() => {
-    dispatch(cargarRutinas(sesion.data.token));
+    dispatch(cargarRutinas(sesion.data.token, setLoading));
   }, []);
   function onSubmitRutina() {
     if (nombreRutina.length > 3) {
@@ -70,14 +72,11 @@ const Home = ({ navigation }) => {
       </View>
 
       <View style={styles.rutinasStyle}>
+        <ActivityIndicator animating={cargarRutinasLoading}></ActivityIndicator>
         {rutinas.length > 0 &&
-          rutinas.map((element) => (
-            <View style={{ width: "40%" }}>
-              <Rutina
-                item={element}
-                key={element._id}
-                navigation={navigation}
-              ></Rutina>
+          rutinas.map((element, index) => (
+            <View key={index} style={{ width: "40%" }}>
+              <Rutina item={element} navigation={navigation}></Rutina>
             </View>
           ))}
         <View style={{ width: "40%" }}>
@@ -95,7 +94,7 @@ const Home = ({ navigation }) => {
 
       <FAB
         icon={<Icon name="plus" size={15} color="black" />}
-        buttonStyle={{ borderRadius: "100%" }}
+        //buttonStyle={{ borderRadius: "100%" }}
         placement={"right"}
         color={"#fff"}
       />

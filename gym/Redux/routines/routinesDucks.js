@@ -43,19 +43,23 @@ export default function reducerRoutine(state = configDuck, action) {
   }
 }
 
-export const cargarRutinas = (permisions) => (dispatch, getState) => {
+export const cargarRutinas = (permisions, loading) => (dispatch, getState) => {
   axios
     .get("http://192.168.1.98:3000/api/routines", {
       headers: { "auth-token": permisions },
     })
     .then(function (response) {
+      loading(false);
       dispatch({
         type: CARGAR_RUTINAS,
         payload: response.data,
       });
     })
     .catch(function (error) {
-      console.log(error.response);
+      dispatch({
+        type: CARGAR_RUTINAS,
+        payload: {},
+      });
     });
 };
 export const crearRutina = (name, permisions) => (dispatch, getState) => {
@@ -149,10 +153,16 @@ export const eliminarRutina = (id, permisions) => async (dispatch) => {
     "http://192.168.1.98:3000/api/routines/" + id,
     { headers: { "auth-token": permisions } }
   );
-  dispatch({
-    type: ELIMINAR_RUTINA,
-    payload: data.data.rutinas,
-  });
+
+  if (data.status == 200) {
+    dispatch({
+      type: ELIMINAR_RUTINA,
+      payload: data.data.rutinas,
+    });
+  } else {
+    alert("Ocurrio un error durante la eliminacion");
+    dispatch(cargarRutinas(permisions));
+  }
 };
 
 export const seleccionarRutina = (seleccionada) => (dispatch) => {
