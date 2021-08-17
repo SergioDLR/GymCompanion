@@ -1,5 +1,5 @@
 import axios from "axios";
-import DiaDeRutina from "../../Components/usuarioLogeado/elementos/diaDeRutina";
+
 const configDuck = {
   routines: {},
   seleccionada: {},
@@ -56,6 +56,7 @@ export const cargarRutinas = (permisions, loading) => (dispatch, getState) => {
       });
     })
     .catch(function (error) {
+      loading(false);
       dispatch({
         type: CARGAR_RUTINAS,
         payload: {},

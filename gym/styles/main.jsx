@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#34B6FA",
+    backgroundColor: "#2f2e3e",
   },
   Container2: {
     flex: 1,
-    backgroundColor: "#34B6FA",
+    backgroundColor: "#2f2e3e",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -35,6 +35,10 @@ const styles = StyleSheet.create({
     color: "#000",
     paddingTop: 1,
     paddingBottom: 1,
+  },
+  Container3: {
+    flex: 1,
+    backgroundColor: "#2f2e3e",
   },
 });
 

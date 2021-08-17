@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Modal } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { crearDia } from "../../../Redux/routines/routinesDucks";
+import style from "../../../styles/main";
 import DiaDeRutina from "./diaDeRutina";
 const RutinaSeleccionada = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -16,8 +17,36 @@ const RutinaSeleccionada = ({ navigation }) => {
     dispatch(crearDia(nombreRutina, sesion.data.token, rutina._id));
   }
   return (
-    <View>
-      <Button title="Añadir dia" onPress={() => setModalVisible(true)}></Button>
+    <View style={style.Container3}>
+      <View
+        style={{
+          marginBottom: 10,
+          alignContent: "flex-start",
+          justifyContent: "center",
+        }}
+      >
+        {rutina.entrenamientoDias.length > 0 &&
+          rutina.entrenamientoDias.map((e) => (
+            <DiaDeRutina
+              item={e}
+              key={e._id}
+              navigation={navigation}
+            ></DiaDeRutina>
+          ))}
+        <View style={{ alignItems: "center" }}>
+          <Button
+            buttonStyle={{
+              backgroundColor: "#fff",
+              width: 250,
+              marginTop: 20,
+            }}
+            titleStyle={style.textButton}
+            title="Añadir dia"
+            onPress={() => setModalVisible(true)}
+          />
+        </View>
+      </View>
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -47,15 +76,6 @@ const RutinaSeleccionada = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-
-      {rutina.entrenamientoDias.length > 0 &&
-        rutina.entrenamientoDias.map((e) => (
-          <DiaDeRutina
-            item={e}
-            key={e._id}
-            navigation={navigation}
-          ></DiaDeRutina>
-        ))}
     </View>
   );
 };

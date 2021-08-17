@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
-import { Input, Button } from "react-native-elements";
+import { Input, Button, Card } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { crearEjercicio } from "../../../Redux/routines/routinesDucks";
 import { eliminarDiaDeRutina } from "../../../Redux/routines/routinesDucks";
 import { seleccionarDia } from "../../../Redux/routines/routinesDucks";
+import global from "../../../styles/main";
 const DiaDeRutina = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nombreEjercicio, setNombreEjercicio] = useState("");
@@ -33,21 +34,38 @@ const DiaDeRutina = (props) => {
   }
   return (
     <View>
-      <TouchableOpacity onPress={() => abrirDia()}>
-        <Text>abrir</Text>
-      </TouchableOpacity>
-      <Text>{props.item.nombre}</Text>
-      <Button
-        icon={<Icon name="trash" size={15} color="white" />}
-        onPress={() =>
-          dispatch(
-            eliminarDiaDeRutina(props.item, props.item._id, sesion.data.token)
-          )
-        }
-      />
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text>Agregar ejercicio</Text>
-      </TouchableOpacity>
+      <Card containerStyle={{ borderRadius: 10 }}>
+        <Text
+          style={[
+            global.textButton,
+            { textAlign: "center", marginTop: 10, marginBottom: 10 },
+          ]}
+        >
+          {props.item.nombre}
+        </Text>
+        <View style={styles.containerCard}>
+          <Button
+            icon={<Icon name="eye" size={15} color="white" />}
+            onPress={() => abrirDia()}
+          />
+          <Button
+            icon={<Icon name="trash" size={15} color="white" />}
+            onPress={() =>
+              dispatch(
+                eliminarDiaDeRutina(
+                  props.item,
+                  props.item._id,
+                  sesion.data.token
+                )
+              )
+            }
+          />
+          <Button
+            onPress={() => setModalVisible(true)}
+            icon={<Icon name="plus" size={15} color="white" />}
+          />
+        </View>
+      </Card>
       <Modal
         animationType="slide"
         transparent={true}
@@ -131,6 +149,11 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  containerCard: {
+    flexWrap: "nowrap",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 });
 
