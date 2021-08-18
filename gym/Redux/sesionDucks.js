@@ -14,22 +14,25 @@ export default function reducerSesion(state = configDuck, action) {
       return state;
   }
 }
-export const registrarUsuario = (user, navigation) => (dispatch, getState) => {
-  axios
-    .post("http://192.168.1.98:3000/api/auth", {
-      user: user,
-    })
-    .then(function (response) {
-      if (response.status === 200) {
-        alert("Cuenta creada con exito");
-        dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
-        navigation.navigate("HomeLoged");
-      }
-    })
-    .catch(function (error) {
-      alert(error.response.data.error);
-    });
-};
+export const registrarUsuario =
+  (user, navigation, loaded) => (dispatch, getState) => {
+    axios
+      .post("http://192.168.1.98:3000/api/auth", {
+        user: user,
+      })
+      .then(function (response) {
+        loaded(false);
+        if (response.status === 200) {
+          alert("Cuenta creada con exito");
+          dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
+          navigation.navigate("HomeLoged");
+        }
+      })
+      .catch(function (error) {
+        loaded(false);
+        alert(error.response.data.error);
+      });
+  };
 export const iniciarSesion =
   (email, password, navigation, loadedState) => (dispatch, getState) => {
     axios

@@ -12,6 +12,7 @@ const Register = ({ navigation }) => {
   const [mail, editMail] = useState("");
 
   const [constraseña, editContraseña] = useState("");
+  const [registrando, setRegistrando] = useState(false);
 
   function enviarRegistro() {
     if (nombre.length <= 1) {
@@ -23,13 +24,14 @@ const Register = ({ navigation }) => {
     } else if (mail.length <= 6) {
       alert("ingresa un mail valido");
     } else {
+      setRegistrando(true);
       const user = {
         name: nombre,
         surname: apellido,
         email: mail,
         password: constraseña,
       };
-      dispatch(registrarUsuario(user, navigation));
+      dispatch(registrarUsuario(user, navigation, setRegistrando));
     }
   }
   const showDatepicker = () => {
@@ -74,9 +76,14 @@ const Register = ({ navigation }) => {
           keyboardType="email-address"
         />
       </View>
-      <TouchableOpacity style={styles.button1} onPress={() => enviarRegistro()}>
-        <Text style={styles.textButton}>Registrarte</Text>
-      </TouchableOpacity>
+      <Button
+        loading={registrando}
+        buttonStyle={styles.button1}
+        titleStyle={styles.textButton}
+        loadingProps={{ color: "#000" }}
+        onPress={() => enviarRegistro()}
+        title={"Registrarte"}
+      />
     </View>
   );
 };
