@@ -15,8 +15,8 @@ const Rutina = props => {
     props.navigation.navigate("rutinaSeleccionada");
   }
   function eliminar() {
-    dispatch(eliminarRutina(props.item._id, sesion.data.token));
     setDisable(true);
+    dispatch(eliminarRutina(props.item._id, sesion.data.token, setDisable));
   }
   return (
     <View>

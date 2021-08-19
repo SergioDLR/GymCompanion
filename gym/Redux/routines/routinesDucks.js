@@ -63,7 +63,10 @@ export const cargarRutinas = (permisions, loading) => (dispatch, getState) => {
       });
     });
 };
-export const crearRutina = (name, permisions) => (dispatch, getState) => {
+export const crearRutina = (name, permisions, setState) => (
+  dispatch,
+  getState
+) => {
   axios
     .post(
       direccionDeConexion + "/api/routines",
@@ -78,16 +81,19 @@ export const crearRutina = (name, permisions) => (dispatch, getState) => {
           headers: { "auth-token": permisions }
         })
         .then(function(response) {
+          setState(false);
           dispatch({
             type: CREAR_RUTINA,
             payload: response.data
           });
         })
         .catch(function(error) {
+          setState(false);
           alert(error.response.error);
         });
     })
     .catch(function(error) {
+      setState(false);
       console.log(error.response.data.error);
       alert(error.response.data.error);
     });
@@ -160,17 +166,19 @@ export const eliminarDiaDeRutina = (dia, id, permisions) => async dispatch => {
   dispatch({ type: ELIMINAR_DIA, payload: data.data.rutina });
 };
 
-export const eliminarRutina = (id, permisions) => async dispatch => {
+export const eliminarRutina = (id, permisions, setState) => async dispatch => {
   const data = await axios.delete(direccionDeConexion + "/api/routines/" + id, {
     headers: { "auth-token": permisions }
   });
 
   if (data.status == 200) {
+    setState(false);
     dispatch({
       type: ELIMINAR_RUTINA,
       payload: data.data.rutinas
     });
   } else {
+    setState(false);
     alert("Ocurrio un error durante la eliminacion");
     dispatch(cargarRutinas(permisions));
   }
