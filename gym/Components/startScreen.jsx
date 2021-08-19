@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -9,7 +9,26 @@ import {
 import { Text, Button } from "react-native-elements";
 import logo from "../assets/images/LogoWhite.png";
 import styles from "../styles/main";
+import { reanudarSession } from "../Redux/sesionDucks";
+import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const StartScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    leerSesion();
+  }, []);
+  async function leerSesion() {
+    try {
+      const value = await AsyncStorage.getItem("@session");
+      if (value !== null) {
+        dispatch(reanudarSession(JSON.parse(value)));
+        navigation.replace("HomeLoged");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.Container}>
       <Text style={stylesMain.main} h1>

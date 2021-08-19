@@ -1,14 +1,19 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const configDuck = {
   sesion: {},
 };
 const REGISTRAR_USUARIO = "REGISTRAR_USUARIO";
 const INICIAR_SESION = "INICIAR_SESION";
+const REANUDAR_SESSION = "REANUDAR_SESSION";
 export default function reducerSesion(state = configDuck, action) {
   switch (action.type) {
     case REGISTRAR_USUARIO:
       return { ...state, sesion: action.payload };
     case INICIAR_SESION:
+      return { ...state, sesion: action.payload };
+    case REANUDAR_SESSION:
       return { ...state, sesion: action.payload };
     default:
       return state;
@@ -25,7 +30,7 @@ export const registrarUsuario =
         if (response.status === 200) {
           alert("Cuenta creada con exito");
           dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
-          navigation.navigate("HomeLoged");
+          navigation.replace("HomeLoged");
         }
       })
       .catch(function (error) {
@@ -45,7 +50,9 @@ export const iniciarSesion =
 
         if (response.status === 200) {
           //alert('Sesion iniciada con exito');
-          navigation.navigate("HomeLoged");
+          const jsonValue = JSON.stringify(response.data);
+          AsyncStorage.setItem("@session", jsonValue);
+          navigation.replace("HomeLoged");
         }
       })
       .catch(function (error) {
@@ -53,3 +60,7 @@ export const iniciarSesion =
         alert("El email o la contraseña no es correcto");
       });
   };
+
+export const reanudarSession = (session) => (dispatch) => {
+  dispatch({ type: REANUDAR_SESSION, payload: session });
+};
