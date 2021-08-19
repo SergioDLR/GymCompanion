@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card, Button } from "react-native-elements";
 import { eliminarRutina } from "../../../Redux/routines/routinesDucks";
 import Icon from "react-native-vector-icons/FontAwesome";
-const Rutina = (props) => {
+const Rutina = props => {
   const dispatch = useDispatch();
-  const sesion = useSelector((state) => state.sesion.sesion);
+  const sesion = useSelector(state => state.sesion.sesion);
   const [disable, setDisable] = useState(false);
 
   function abrirRutina() {

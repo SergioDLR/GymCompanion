@@ -1,9 +1,9 @@
 import axios from "axios";
-
+const direccionDeConexion = "http://192.168.1.48:3000";
 const configDuck = {
   routines: {},
   seleccionada: {},
-  seleccionarDia: {},
+  seleccionarDia: {}
 };
 const CARGAR_RUTINAS = "CARGAR_RUTINAS";
 const CREAR_RUTINA = "CREAR_RUTINA";
@@ -36,7 +36,7 @@ export default function reducerRoutine(state = configDuck, action) {
       return {
         ...state,
         seleccionarDia: action.payload,
-        seleccionada: action.payloadDos,
+        seleccionada: action.payloadDos
       };
     default:
       return state;
@@ -45,120 +45,130 @@ export default function reducerRoutine(state = configDuck, action) {
 
 export const cargarRutinas = (permisions, loading) => (dispatch, getState) => {
   axios
-    .get("http://192.168.1.98:3000/api/routines", {
-      headers: { "auth-token": permisions },
+    .get(direccionDeConexion + "/api/routines", {
+      headers: { "auth-token": permisions }
     })
-    .then(function (response) {
+    .then(function(response) {
       loading(false);
       dispatch({
         type: CARGAR_RUTINAS,
-        payload: response.data,
+        payload: response.data
       });
     })
-    .catch(function (error) {
+    .catch(function(error) {
       loading(false);
       dispatch({
         type: CARGAR_RUTINAS,
-        payload: {},
+        payload: {}
       });
     });
 };
 export const crearRutina = (name, permisions) => (dispatch, getState) => {
   axios
     .post(
-      "http://192.168.1.98:3000/api/routines",
+      direccionDeConexion + "/api/routines",
       { name },
       {
-        headers: { "auth-token": permisions },
+        headers: { "auth-token": permisions }
       }
     )
-    .then(function (response) {
+    .then(function(response) {
       axios
-        .get("http://192.168.1.98:3000/api/routines", {
-          headers: { "auth-token": permisions },
+        .get(direccionDeConexion + "/api/routines", {
+          headers: { "auth-token": permisions }
         })
-        .then(function (response) {
+        .then(function(response) {
           dispatch({
             type: CREAR_RUTINA,
-            payload: response.data,
+            payload: response.data
           });
         })
-        .catch(function (error) {
+        .catch(function(error) {
           alert(error.response.error);
         });
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error.response.data.error);
       alert(error.response.data.error);
     });
 };
-export const crearDia =
-  (name, permisions, id) => async (dispatch, getState) => {
-    const data = await axios.post(
-      "http://192.168.1.98:3000/api/routinesDay/" + id,
-      { nombre: name },
-      {
-        headers: { "auth-token": permisions },
-      }
-    );
-    dispatch({ type: CREAR_DIA, payload: data.data.rutinaGuardada });
-  };
-
-export const crearEjercicio =
-  (nombre, permisions, id, repeticiones, series) => async (dispatch) => {
-    const ejercicio = {
-      nombre,
-      repeticiones,
-      series,
-    };
-    const data = await axios.put(
-      "http://192.168.1.98:3000/api/routinesDay/" + id,
-      { ejercicio },
-      {
-        headers: { "auth-token": permisions },
-      }
-    );
-    dispatch({
-      type: CREAR_EJERCICIO,
-      payload: data.data.rutinasActualizadas,
-    });
-  };
-
-export const eliminarEjercicio =
-  (ejercicio, permisions, id) => async (dispatch) => {
-    const data = await axios.delete(
-      "http://192.168.1.98:3000/api/routinesDay/ejercicio/" + id,
-      {
-        data: ejercicio,
-        headers: { "auth-token": permisions },
-      }
-    );
-    dispatch({
-      type: ELIMINAR_EJERCICIO,
-      payload: data.data.rutinaNueva,
-      payloadDos: data.data.rutinaSeleccionada,
-    });
-  };
-
-export const eliminarDiaDeRutina =
-  (dia, id, permisions) => async (dispatch) => {
-    const data = await axios.delete(
-      "http://192.168.1.98:3000/api/routinesDay/" + id,
-      { data: dia, headers: { "auth-token": permisions } }
-    );
-    dispatch({ type: ELIMINAR_DIA, payload: data.data.rutina });
-  };
-
-export const eliminarRutina = (id, permisions) => async (dispatch) => {
-  const data = await axios.delete(
-    "http://192.168.1.98:3000/api/routines/" + id,
-    { headers: { "auth-token": permisions } }
+export const crearDia = (name, permisions, id) => async (
+  dispatch,
+  getState
+) => {
+  const data = await axios.post(
+    direccionDeConexion + "/api/routinesDay/" + id,
+    { nombre: name },
+    {
+      headers: { "auth-token": permisions }
+    }
   );
+  dispatch({ type: CREAR_DIA, payload: data.data.rutinaGuardada });
+};
+
+export const crearEjercicio = (
+  nombre,
+  permisions,
+  id,
+  repeticiones,
+  series
+) => async dispatch => {
+  const ejercicio = {
+    nombre,
+    repeticiones,
+    series
+  };
+  const data = await axios.put(
+    direccionDeConexion + "/api/routinesDay/" + id,
+    { ejercicio },
+    {
+      headers: { "auth-token": permisions }
+    }
+  );
+  dispatch({
+    type: CREAR_EJERCICIO,
+    payload: data.data.rutinasActualizadas
+  });
+};
+
+export const eliminarEjercicio = (
+  ejercicio,
+  permisions,
+  id,
+  setState
+) => async dispatch => {
+  const data = await axios.delete(
+    direccionDeConexion + "/api/routinesDay/ejercicio/" + id,
+    {
+      data: ejercicio,
+      headers: { "auth-token": permisions }
+    }
+  );
+  setState(false);
+  dispatch({
+    type: ELIMINAR_EJERCICIO,
+    payload: data.data.rutinaNueva,
+    payloadDos: data.data.rutinaSeleccionada
+  });
+};
+
+export const eliminarDiaDeRutina = (dia, id, permisions) => async dispatch => {
+  const data = await axios.delete(
+    direccionDeConexion + "/api/routinesDay/" + id,
+    { data: dia, headers: { "auth-token": permisions } }
+  );
+  dispatch({ type: ELIMINAR_DIA, payload: data.data.rutina });
+};
+
+export const eliminarRutina = (id, permisions) => async dispatch => {
+  const data = await axios.delete(direccionDeConexion + "/api/routines/" + id, {
+    headers: { "auth-token": permisions }
+  });
 
   if (data.status == 200) {
     dispatch({
       type: ELIMINAR_RUTINA,
-      payload: data.data.rutinas,
+      payload: data.data.rutinas
     });
   } else {
     alert("Ocurrio un error durante la eliminacion");
@@ -166,15 +176,15 @@ export const eliminarRutina = (id, permisions) => async (dispatch) => {
   }
 };
 
-export const seleccionarRutina = (seleccionada) => (dispatch) => {
+export const seleccionarRutina = seleccionada => dispatch => {
   dispatch({
     type: SELECCIONAR_RUTINA,
-    payload: seleccionada,
+    payload: seleccionada
   });
 };
-export const seleccionarDia = (dia) => (dispatch) => {
+export const seleccionarDia = dia => dispatch => {
   dispatch({
     type: SELECCIONAR_DIA,
-    payload: dia,
+    payload: dia
   });
 };
