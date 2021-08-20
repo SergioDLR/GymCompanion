@@ -8,6 +8,8 @@ import StartScreen from "./startScreen";
 import Register from "./register";
 import * as React from "react";
 
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 const StackNavigation = () => {
   const Stack = createStackNavigator();
   return (
@@ -22,13 +24,7 @@ const StackNavigation = () => {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen
-          name="HomeLoged"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
+        <Stack.Screen name="HomeLoged" component={myTab} />
         <Stack.Screen
           name="rutinaSeleccionada"
           component={RutinaSeleccionada}
@@ -36,6 +32,16 @@ const StackNavigation = () => {
         <Stack.Screen name="Ejercicios" component={DiaDeRutinaDisplay} />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+};
+
+const myTab = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="home" component={Home} />
+      <Tab.Screen name="rutinaSeleccionada" component={RutinaSeleccionada} />
+    </Tab.Navigator>
   );
 };
 

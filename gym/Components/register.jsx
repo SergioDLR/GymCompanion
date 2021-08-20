@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import styles from "../styles/main";
 import { registrarUsuario } from "../Redux/sesionDucks";
+import { cargarAlerta } from "../Redux/alertDucks";
 const Register = ({ navigation }) => {
   const dispatch = useDispatch();
   const [nombre, editNombre] = useState("");
@@ -16,13 +17,13 @@ const Register = ({ navigation }) => {
 
   function enviarRegistro() {
     if (nombre.length <= 1) {
-      alert("Ingresa un nombre valido");
+      dispatch(cargarAlerta("Ingresa un nombre valido"));
     } else if (apellido.length <= 1) {
-      alert("Ingresa un apellido valido");
+      dispatch(cargarAlerta("Ingresa un apellido valido"));
     } else if (constraseña.length <= 6) {
-      alert("ingresa una contraseña valida");
+      dispatch(cargarAlerta("ingresa una contraseña valida"));
     } else if (mail.length <= 6) {
-      alert("ingresa un mail valido");
+      dispatch(cargarAlerta("Ingrese un mail valido"));
     } else {
       setRegistrando(true);
       const user = {

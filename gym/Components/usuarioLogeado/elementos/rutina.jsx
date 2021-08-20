@@ -62,17 +62,18 @@ const RutinaSeleccionada = ({ navigation }) => {
               placeholder="Nombre dia de entrenamiento"
               onChangeText={(nombreRutina) => setNombreRutina(nombreRutina)}
             />
-
-            <Button
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => onSubmitDia()}
-              title="Aceptar"
-            ></Button>
-            <Button
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-              title="Cancelar"
-            ></Button>
+            <View style={{ flexDirection: "row" }}>
+              <Button
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => onSubmitDia()}
+                title="Aceptar"
+              ></Button>
+              <Button
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+                title="Cancelar"
+              ></Button>
+            </View>
           </View>
         </View>
       </Modal>
