@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from "react-native";
 import StackNavigation from "./Components/stackNavegacion";
 import { Provider } from "react-redux";
 import generateStore from "./Redux/store";
-import TabNavigation from "./Components/tabNavegation";
 import Alerta from "./Components/usuarioLogeado/elementos/alertas";
 
 export default function App() {

@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const direccionDeConexion = "http://192.168.1.98:3000";
 import { cargarAlerta } from "./alertDucks";
-
+import { CommonActions } from "@react-navigation/native";
 const configDuck = {
   sesion: {},
 };
@@ -32,7 +32,13 @@ export const registrarUsuario =
         if (response.status === 200) {
           dispatch(cargarAlerta("Cuenta creada con exito"));
           dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
-          navigation.replace("HomeLoged");
+
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "HomeLoged" }],
+            })
+          );
         }
       })
       .catch(function (error) {
@@ -53,7 +59,13 @@ export const iniciarSesion =
         if (response.status === 200) {
           const jsonValue = JSON.stringify(response.data);
           AsyncStorage.setItem("@session", jsonValue);
-          navigation.replace("HomeLoged");
+
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "HomeLoged" }],
+            })
+          );
         }
       })
       .catch(function (error) {

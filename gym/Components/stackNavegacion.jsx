@@ -36,14 +36,4 @@ const StackNavigation = () => {
   );
 };
 
-const myTab = () => {
-  const Tab = createBottomTabNavigator();
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="home" component={Home} />
-      <Tab.Screen name="rutinaSeleccionada" component={RutinaSeleccionada} />
-    </Tab.Navigator>
-  );
-};
-
 export default StackNavigation;
