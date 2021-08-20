@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./usuarioLogeado/home";
 import RutinaSeleccionada from "./usuarioLogeado/elementos/rutina";
 import DiaDeRutinaDisplay from "./usuarioLogeado/elementos/diaDeEntrenamiento";
+import TabNavigation from "./tabNavegation";
 import Login from "./login";
 import StartScreen from "./startScreen";
 import Register from "./register";
@@ -24,7 +25,7 @@ const StackNavigation = () => {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="HomeLoged" component={myTab} />
+        <Stack.Screen name="HomeLoged" component={TabNavigation} />
         <Stack.Screen
           name="rutinaSeleccionada"
           component={RutinaSeleccionada}
