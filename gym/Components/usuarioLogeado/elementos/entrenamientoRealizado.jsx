@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Text } from "react-native-elements";
-const EntrenamientoRealizado = ({ props }) => {
+const EntrenamientoRealizado = props => {
   return (
     <View>
       <Text>{props.item.fecha}</Text>
@@ -9,4 +9,4 @@ const EntrenamientoRealizado = ({ props }) => {
   );
 };
 
-export default EntrenamientoRealiazdo;
+export default EntrenamientoRealizado;
