@@ -1,25 +1,43 @@
-import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  ScrollView,
+  SafeAreaView
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { cargarEntrenamientos } from "../../Redux/entrenamientosDucks";
+import style from "../../styles/main";
 import EntrenamientoRealizado from "./elementos/entrenamientoRealizado";
 const EntrenamientosRealizados = () => {
+  const [cargando, setCargando] = useState(true);
   const dispatch = useDispatch();
   const sesion = useSelector(state => state.sesion.sesion);
   const entrenamientos = useSelector(state => state.entrenamiento);
   useEffect(() => {
-    dispatch(cargarEntrenamientos(sesion.data.token));
+    dispatch(cargarEntrenamientos(sesion.data.token, setCargando));
   }, []);
   console.log();
-
+  const renderEntrenamientos = () => {
+    return entrenamientos.entrenamientosRealizados.map((e, i) => (
+      <EntrenamientoRealizado item={e} key={i}></EntrenamientoRealizado>
+    ));
+  };
   return (
-    <View>
-      <Text>Estos son los entrenamientos</Text>
-
-      {entrenamientos.entrenamientosRealizados.map((e, i) => (
-        <EntrenamientoRealizado item={e} key={i}></EntrenamientoRealizado>
-      ))}
-    </View>
+    <SafeAreaView style={[style.Container3]}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Text>Tus ultimos entrenamientos</Text>
+        {cargando ? (
+          <ActivityIndicator
+            animating={true}
+            color="#0000ff"
+          ></ActivityIndicator>
+        ) : (
+          renderEntrenamientos()
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

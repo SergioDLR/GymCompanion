@@ -19,7 +19,7 @@ const Rutina = props => {
     dispatch(eliminarRutina(props.item._id, sesion.data.token, setDisable));
   }
   return (
-    <View>
+    <View style={{ width: 200 }}>
       <TouchableOpacity onPress={() => abrirRutina()}>
         <Card containerStyle={{ borderRadius: 5 }}>
           <Card.Title>
