@@ -20,12 +20,18 @@ const StackNavigation = () => {
           name="Home"
           component={StartScreen}
           options={{
-            headerShown: false,
+            headerShown: false
           }}
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="HomeLoged" component={TabNavigation} />
+        <Stack.Screen
+          name="HomeLoged"
+          options={{
+            headerShown: false
+          }}
+          component={TabNavigation}
+        />
         <Stack.Screen
           name="rutinaSeleccionada"
           component={RutinaSeleccionada}

@@ -9,8 +9,8 @@ const RutinaSeleccionada = ({ navigation }) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [nombreRutina, setNombreRutina] = useState("");
-  const sesion = useSelector((state) => state.sesion.sesion);
-  const rutina = useSelector((state) => state.routines.seleccionada);
+  const sesion = useSelector(state => state.sesion.sesion);
+  const rutina = useSelector(state => state.routines.seleccionada);
 
   function onSubmitDia() {
     setModalVisible(!modalVisible);
@@ -22,11 +22,11 @@ const RutinaSeleccionada = ({ navigation }) => {
         style={{
           marginBottom: 10,
           alignContent: "flex-start",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         {rutina.entrenamientoDias.length > 0 &&
-          rutina.entrenamientoDias.map((e) => (
+          rutina.entrenamientoDias.map(e => (
             <DiaDeRutina
               item={e}
               key={e._id}
@@ -38,7 +38,7 @@ const RutinaSeleccionada = ({ navigation }) => {
             buttonStyle={{
               backgroundColor: "#fff",
               width: 250,
-              marginTop: 20,
+              marginTop: 20
             }}
             titleStyle={style.textButton}
             title="Añadir dia"
@@ -60,7 +60,7 @@ const RutinaSeleccionada = ({ navigation }) => {
             <Text style={styles.modalText}>Ingresa el nombre de la rutina</Text>
             <Input
               placeholder="Nombre dia de entrenamiento"
-              onChangeText={(nombreRutina) => setNombreRutina(nombreRutina)}
+              onChangeText={nombreRutina => setNombreRutina(nombreRutina)}
             />
             <View style={{ flexDirection: "row" }}>
               <Button
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    marginTop: 22,
+    marginTop: 22
   },
   modalView: {
     margin: 20,
@@ -95,32 +95,32 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 5
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2,
+    elevation: 2
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: "#F194FF"
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#2196F3"
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center",
+    textAlign: "center"
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
 
 export default RutinaSeleccionada;

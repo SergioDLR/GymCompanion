@@ -34,6 +34,7 @@ const Home = ({ navigation }) => {
       setLoadingCreate(true);
       dispatch(crearRutina(nombreRutina, sesion.data.token, setLoadingCreate));
       setModalVisible(!modalVisible);
+      setNombreRutina("");
     } else {
       dispatch(cargarAlerta("Ingresa un nombre mayor a 3 caracteres"));
     }
@@ -41,59 +42,70 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={gStyles.Container2}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                Ingresa el nombre de la rutina
-              </Text>
-              <Input
-                placeholder="Nombre Rutina"
-                onChangeText={nombreRutina => setNombreRutina(nombreRutina)}
-              />
-              <View
-                style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-              >
-                <Button
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => onSubmitRutina()}
-                  loading={loadingCreate}
-                  title="Aceptar"
-                ></Button>
-                <Button
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                  title="Cancelar"
-                ></Button>
+        <View style={{ marginTop: 40 }}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>
+                  Ingresa el nombre de la rutina
+                </Text>
+                <Input
+                  placeholder="Nombre Rutina"
+                  onChangeText={nombreRutina => setNombreRutina(nombreRutina)}
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-evenly"
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flexBasis: "60%",
+                      justifyContent: "space-between"
+                    }}
+                  >
+                    <Button
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => onSubmitRutina()}
+                      loading={loadingCreate}
+                      title="Aceptar"
+                    ></Button>
+                    <Button
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => setModalVisible(!modalVisible)}
+                      title="Cancelar"
+                    ></Button>
+                  </View>
+                </View>
               </View>
             </View>
+          </Modal>
+          <View>
+            <Text h4 style={{ color: "#fff" }}>
+              Bienvenido a Gym Companion
+            </Text>
+            <Text style={{ color: "#fff" }}>Tus rutinas:</Text>
           </View>
-        </Modal>
-        <View //style={{ justifyContent: "flex-start" }}
-        >
-          <Text h4 style={{ color: "#fff" }}>
-            Bienvenido a Gym Companion
-          </Text>
-          <Text style={{ color: "#fff" }}>Tus rutinas:</Text>
+          <View style={styles.rutinasStyle}>
+            {rutinas.length > 0 &&
+              rutinas.map((element, index) => (
+                <Rutina
+                  key={index}
+                  item={element}
+                  navigation={navigation}
+                ></Rutina>
+              ))}
+          </View>
         </View>
-        <View style={styles.rutinasStyle}>
-          {rutinas.length > 0 &&
-            rutinas.map((element, index) => (
-              <Rutina
-                key={index}
-                item={element}
-                navigation={navigation}
-              ></Rutina>
-            ))}
-        </View>
-
         <FAB
           icon={<Icon name="plus" size={15} color="black" />}
           buttonStyle={{ borderRadius: 30 }}
@@ -112,9 +124,6 @@ const styles = StyleSheet.create({
     marginTop: 22
   },
   rutinasStyle: {
-    flexGrow: 2,
-    flexWrap: "wrap",
-    flexDirection: "row",
     justifyContent: "center"
   },
   modalView: {

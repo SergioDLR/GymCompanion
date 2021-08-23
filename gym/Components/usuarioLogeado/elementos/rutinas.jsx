@@ -19,19 +19,30 @@ const Rutina = props => {
     dispatch(eliminarRutina(props.item._id, sesion.data.token, setDisable));
   }
   return (
-    <View style={{ width: 200 }}>
-      <TouchableOpacity onPress={() => abrirRutina()}>
-        <Card containerStyle={{ borderRadius: 5 }}>
-          <Card.Title>
-            <Text>{props.item.name}</Text>
-          </Card.Title>
-          <Button
-            icon={<Icon name="trash" size={15} color="white" />}
-            loading={disable}
-            onPress={() => eliminar()}
-          />
-        </Card>
-      </TouchableOpacity>
+    <View style={{ width: "100%" }}>
+      <Card containerStyle={{ borderRadius: 5 }}>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flexBasis: "70%" }}>
+            <Card.Title style={{ marginTop: 8 }}>
+              <Text>{props.item.name}</Text>
+            </Card.Title>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Button
+              icon={<Icon name="eye" size={30} color="white" />}
+              onPress={() => abrirRutina()}
+            />
+            <Button
+              icon={<Icon name="trash" size={30} color="white" />}
+              buttonStyle={{ marginLeft: 10 }}
+              loading={disable}
+              onPress={() => eliminar()}
+            />
+          </View>
+        </View>
+      </Card>
     </View>
   );
 };

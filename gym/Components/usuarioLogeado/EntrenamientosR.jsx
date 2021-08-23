@@ -25,17 +25,19 @@ const EntrenamientosRealizados = () => {
     ));
   };
   return (
-    <SafeAreaView style={[style.Container3]}>
+    <SafeAreaView style={[style.Container2]}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Text>Tus ultimos entrenamientos</Text>
-        {cargando ? (
-          <ActivityIndicator
-            animating={true}
-            color="#0000ff"
-          ></ActivityIndicator>
-        ) : (
-          renderEntrenamientos()
-        )}
+        <View style={{ marginTop: 40 }}>
+          <Text>Tus ultimos entrenamientos</Text>
+          {cargando ? (
+            <ActivityIndicator
+              animating={true}
+              color="#0000ff"
+            ></ActivityIndicator>
+          ) : (
+            renderEntrenamientos()
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
