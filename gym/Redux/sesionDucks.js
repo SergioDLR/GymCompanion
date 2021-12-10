@@ -1,10 +1,10 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const direccionDeConexion = "http://192.168.1.48:3000";
+const direccionDeConexion = "http://192.168.1.98:3000";
 import { cargarAlerta } from "./alertDucks";
 import { CommonActions } from "@react-navigation/native";
 const configDuck = {
-  sesion: {}
+  sesion: {},
 };
 const REGISTRAR_USUARIO = "REGISTRAR_USUARIO";
 const INICIAR_SESION = "INICIAR_SESION";
@@ -21,64 +21,60 @@ export default function reducerSesion(state = configDuck, action) {
       return state;
   }
 }
-export const registrarUsuario = (user, navigation, loaded) => (
-  dispatch,
-  getState
-) => {
-  axios
-    .post(direccionDeConexion + "/api/auth", {
-      user: user
-    })
-    .then(function(response) {
-      loaded(false);
-      if (response.status === 200) {
-        dispatch(cargarAlerta("Cuenta creada con exito"));
-        dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
+export const registrarUsuario =
+  (user, navigation, loaded) => (dispatch, getState) => {
+    axios
+      .post(direccionDeConexion + "/api/auth", {
+        user: user,
+      })
+      .then(function (response) {
+        loaded(false);
+        if (response.status === 200) {
+          dispatch(cargarAlerta("Cuenta creada con exito"));
+          dispatch({ type: REGISTRAR_USUARIO, payload: response.data });
 
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: "HomeLoged" }]
-          })
-        );
-      }
-    })
-    .catch(function(error) {
-      loaded(false);
-      dispatch(cargarAlerta("Ocurrio un error"));
-    });
-};
-export const iniciarSesion = (email, password, navigation, loadedState) => (
-  dispatch,
-  getState
-) => {
-  axios
-    .post(direccionDeConexion + "/api/login", {
-      email: email,
-      password: password
-    })
-    .then(function(response) {
-      dispatch({ type: INICIAR_SESION, payload: response.data });
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "HomeLoged" }],
+            })
+          );
+        }
+      })
+      .catch(function (error) {
+        loaded(false);
+        dispatch(cargarAlerta("Ocurrio un error"));
+      });
+  };
+export const iniciarSesion =
+  (email, password, navigation, loadedState) => (dispatch, getState) => {
+    axios
+      .post(direccionDeConexion + "/api/login", {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        dispatch({ type: INICIAR_SESION, payload: response.data });
 
-      if (response.status === 200) {
-        const jsonValue = JSON.stringify(response.data);
-        AsyncStorage.setItem("@session", jsonValue);
+        if (response.status === 200) {
+          const jsonValue = JSON.stringify(response.data);
+          AsyncStorage.setItem("@session", jsonValue);
 
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: "HomeLoged" }]
-          })
-        );
-      }
-    })
-    .catch(function(error) {
-      loadedState(false);
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: "HomeLoged" }],
+            })
+          );
+        }
+      })
+      .catch(function (error) {
+        loadedState(false);
 
-      dispatch(cargarAlerta("El email o la contraseña no es correcto"));
-    });
-};
+        dispatch(cargarAlerta("El email o la contraseña no es correcto"));
+      });
+  };
 
-export const reanudarSession = session => dispatch => {
+export const reanudarSession = (session) => (dispatch) => {
   dispatch({ type: REANUDAR_SESSION, payload: session });
 };

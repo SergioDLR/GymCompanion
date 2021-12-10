@@ -1,9 +1,9 @@
 import axios from "axios";
-const direccionDeConexion = "http://192.168.1.48:3000";
+const direccionDeConexion = "http://192.168.1.98:3000";
 const configDuck = {
   entrenamientosRealizados: [{}],
   entrenamientoActual: {},
-  estaEntrenando: false
+  estaEntrenando: false,
 };
 const CARGAR_ENTRENAMIENTOS = " CARGAR_ENTRENAMIENTOS";
 export default function reducerEntrenamiento(state = configDuck, action) {
@@ -15,16 +15,14 @@ export default function reducerEntrenamiento(state = configDuck, action) {
   }
 }
 
-export const cargarEntrenamientos = (
-  permisions,
-  setCargando
-) => async dispatch => {
-  const data = await axios.get(direccionDeConexion + "/api/training", {
-    headers: { "auth-token": permisions }
-  });
+export const cargarEntrenamientos =
+  (permisions, setCargando) => async (dispatch) => {
+    const data = await axios.get(direccionDeConexion + "/api/training", {
+      headers: { "auth-token": permisions },
+    });
 
-  if (data.status == 200) {
-    dispatch({ type: CARGAR_ENTRENAMIENTOS, payload: data.data.result });
-    setCargando(false);
-  }
-};
+    if (data.status == 200) {
+      dispatch({ type: CARGAR_ENTRENAMIENTOS, payload: data.data.result });
+      setCargando(false);
+    }
+  };
