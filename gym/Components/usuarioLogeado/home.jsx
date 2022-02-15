@@ -41,7 +41,7 @@ const Home = ({ navigation }) => {
   }
   return (
     <SafeAreaView style={gStyles.Container2}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
         <View style={{ marginTop: 40 }}>
           <Modal
             animationType="slide"
@@ -105,10 +105,11 @@ const Home = ({ navigation }) => {
               ))}
           </View>
         </View>
+
         <FAB
           icon={<Icon name="plus" size={15} color="black" />}
           buttonStyle={{ borderRadius: 30 }}
-          placement={"right"}
+          placement="right"
           onPress={() => setModalVisible(true)}
           color={"#fff"}
         />

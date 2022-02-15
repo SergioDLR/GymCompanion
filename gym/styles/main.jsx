@@ -12,8 +12,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#191720",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
   },
   button1: {
     width: 250,
