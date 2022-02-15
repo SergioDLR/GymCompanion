@@ -6,14 +6,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#2f2e3e"
+    backgroundColor: "#191720",
   },
   Container2: {
     flex: 1,
     backgroundColor: "#2f2e3e",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   button1: {
     width: 250,
@@ -21,25 +21,25 @@ const styles = StyleSheet.create({
     padding: 8,
     alignItems: "center",
     borderRadius: 5,
-    marginBottom: 23
+    marginBottom: 23,
   },
   button2: {
     width: 250,
     backgroundColor: "#fff",
     padding: 8,
     alignItems: "center",
-    borderRadius: 5
+    borderRadius: 5,
   },
   textButton: {
     fontSize: 18,
     color: "#000",
     paddingTop: 1,
-    paddingBottom: 1
+    paddingBottom: 1,
   },
   Container3: {
     flex: 1,
-    backgroundColor: "#2f2e3e"
-  }
+    backgroundColor: "#2f2e3e",
+  },
 });
 
 export default styles;

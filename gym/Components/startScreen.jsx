@@ -34,19 +34,23 @@ const StartScreen = ({ navigation }) => {
       <Text style={stylesMain.main} h1>
         Bienvenido
       </Text>
-      <Image style={stylesMain.image} source={logo} />
-      <TouchableOpacity
-        style={styles.button1}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <Text style={styles.textButton}>Ingresar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button2}
-        onPress={() => navigation.navigate("Register")}
-      >
-        <Text style={styles.textButton}>Registarte</Text>
-      </TouchableOpacity>
+      <Text style={stylesMain.main} h4>
+        Empieza a entrenar con la ayuda de GYMnion!
+      </Text>
+      <View style={stylesMain.sector}>
+        <TouchableOpacity
+          style={styles.button1}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.textButton}>Ingresar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button1}
+          onPress={() => navigation.navigate("Register")}
+        >
+          <Text style={styles.textButton}>Registarte</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -59,10 +63,17 @@ const stylesMain = StyleSheet.create({
   main: {
     fontFamily: "Roboto",
     color: "#fff",
+    textAlign: "center",
+    padding: "20px",
   },
   image: {
     width: 250,
     height: 250,
+  },
+  sector: {
+    padding: "20px",
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 export default StartScreen;
