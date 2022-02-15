@@ -20,15 +20,26 @@ const StackNavigation = () => {
           name="Home"
           component={StartScreen}
           options={{
-            headerShown: false
+            headerShown: true,
+            animationEnabled: true,
+            animationTypeForReplace: "pop",
+            title: "Inicio",
           }}
         />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ title: "Ingresar" }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{ title: "Registrate" }}
+        />
         <Stack.Screen
           name="HomeLoged"
           options={{
-            headerShown: false
+            headerShown: false,
           }}
           component={TabNavigation}
         />

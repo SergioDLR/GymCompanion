@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import StackNavigation from "./Components/stackNavegacion";
 import { Provider } from "react-redux";
 import generateStore from "./Redux/store";
@@ -10,7 +10,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <Alerta></Alerta>
+      <Alerta />
       <StackNavigation></StackNavigation>
     </Provider>
   );

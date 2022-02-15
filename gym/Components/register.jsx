@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Touchable, TouchableOpacity } from "react-native";
-import { Text, Button, Input } from "react-native-elements";
+import { Button, Input } from "react-native-elements";
 import { useDispatch } from "react-redux";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import styles from "../styles/main";
 import { registrarUsuario } from "../Redux/sesionDucks";
 import { cargarAlerta } from "../Redux/alertDucks";

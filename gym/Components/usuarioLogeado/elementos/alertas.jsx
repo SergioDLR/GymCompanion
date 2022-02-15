@@ -6,7 +6,6 @@ import { esconderAlerta } from "../../../Redux/alertDucks";
 const Alerta = () => {
   const alertState = useSelector((state) => state.alertas);
   const dispatch = useDispatch();
-
   return (
     <Overlay
       onBackdropPress={() => dispatch(esconderAlerta())}

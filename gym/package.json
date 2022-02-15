@@ -7,6 +7,7 @@
     "start": "expo start"
   },
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.17",
     "@react-native-async-storage/async-storage": "^1.15.6",
     "@react-native-community/datetimepicker": "3.5.2",
     "@react-native-community/masked-view": "0.1.10",
@@ -33,7 +34,8 @@
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "tailwind-react-native-classnames": "^1.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
