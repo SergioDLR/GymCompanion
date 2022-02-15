@@ -4,9 +4,15 @@ import Home from "./usuarioLogeado/home";
 import RutinaSeleccionada from "./usuarioLogeado/elementos/rutina";
 import EntrenamientosRealizados from "./usuarioLogeado/EntrenamientosR";
 import { NavigationContainer } from "@react-navigation/native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Pefil from "./usuarioLogeado/perfil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPersonWalking,
+  faUser,
+  faClockRotateLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { View } from "react-native";
+import { Icon } from "react-native-elements/dist/icons/Icon";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
@@ -17,14 +23,14 @@ const TabNavigation = () => {
           let iconName;
 
           if (route.name === "Rutinas") {
-            iconName = focused ? "user" : "user";
+            iconName = focused ? "running" : "running";
           } else if (route.name === "Perfil") {
-            iconName = focused ? "user" : "user";
+            iconName = focused ? "user-circle" : "user-circle";
           } else if (route.name === "Entrenamientos") {
-            iconName = focused ? "user" : "user";
+            iconName = focused ? "clock" : "clock";
           }
-          const iconTest = "fa-duotone";
-          return <FontAwesomeIcon icon="fa-duotone" />;
+
+          return <Icon name={iconName} type="font-awesome-5" />;
         },
       })}
     >

@@ -78,7 +78,7 @@ const Register = ({ navigation }) => {
       </View>
       <Button
         loading={registrando}
-        buttonStyle={styles.button1}
+        buttonStyle={styles.button2}
         titleStyle={styles.textButton}
         loadingProps={{ color: "#000" }}
         onPress={() => enviarRegistro()}

@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Touchable,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { Button, Input, Text, Card, FAB, Overlay } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,8 +23,8 @@ const Home = ({ navigation }) => {
   const [nombreRutina, setNombreRutina] = useState("");
   const [loadingCreate, setLoadingCreate] = useState(false);
   const dispatch = useDispatch();
-  const rutinas = useSelector(state => state.routines.routines);
-  const sesion = useSelector(state => state.sesion.sesion);
+  const rutinas = useSelector((state) => state.routines.routines);
+  const sesion = useSelector((state) => state.sesion.sesion);
   const [cargarRutinasLoading, setLoading] = useState(true);
   useEffect(() => {
     dispatch(cargarRutinas(sesion.data.token, setLoading));
@@ -58,19 +58,19 @@ const Home = ({ navigation }) => {
                 </Text>
                 <Input
                   placeholder="Nombre Rutina"
-                  onChangeText={nombreRutina => setNombreRutina(nombreRutina)}
+                  onChangeText={(nombreRutina) => setNombreRutina(nombreRutina)}
                 />
                 <View
                   style={{
                     flexDirection: "row",
-                    justifyContent: "space-evenly"
+                    justifyContent: "space-evenly",
                   }}
                 >
                   <View
                     style={{
                       flexDirection: "row",
                       flexBasis: "60%",
-                      justifyContent: "space-between"
+                      justifyContent: "space-between",
                     }}
                   >
                     <Button
@@ -90,10 +90,9 @@ const Home = ({ navigation }) => {
             </View>
           </Modal>
           <View>
-            <Text h4 style={{ color: "#fff" }}>
-              Bienvenido a Gym Companion
+            <Text p style={{ color: "#fff" }}>
+              Tus rutinas:
             </Text>
-            <Text style={{ color: "#fff" }}>Tus rutinas:</Text>
           </View>
           <View style={styles.rutinasStyle}>
             {rutinas.length > 0 &&
@@ -121,10 +120,10 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   rutinasStyle: {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   modalView: {
     margin: 20,
@@ -135,32 +134,32 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF"
+    backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: "#2196F3"
+    backgroundColor: "#2196F3",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 export default Home;

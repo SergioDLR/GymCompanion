@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   Container2: {
     flex: 1,
-    backgroundColor: "#2f2e3e",
+    backgroundColor: "#191720",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
