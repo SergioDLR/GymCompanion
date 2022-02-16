@@ -17,42 +17,43 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  runOnJS,
+  useDerivedValue,
 } from "react-native-reanimated";
 
 const Rutina = (props) => {
-  const translateX = useSharedValue(-64);
-  //start of animation definition
-  const panEvent = useAnimatedGestureHandler({
-    onStart: (event, context) => {
-      context.translateX = translateX.value;
-    },
-    onActive: (event, context) => {
-      translateX.value = event.translationX + context.translateX;
-    },
-    onEnd: (event, context) => {
-      translateX.value = withSpring(-64);
-      /*
-      if (event.translationX > 150) {
-        abrirRutina();
-      } else if (event.translationX < -150) {
-        eliminar();
-      }
-      */
-    },
-  });
-  //end of animation definition
   const dispatch = useDispatch();
   const sesion = useSelector((state) => state.sesion.sesion);
   const [disable, setDisable] = useState(false);
 
-  function abrirRutina() {
+  const abrirRutina = () => {
     dispatch(seleccionarRutina(props.item));
     props.navigation.navigate("rutinaSeleccionada");
-  }
-  function eliminar() {
+  };
+  const eliminar = () => {
     setDisable(true);
     dispatch(eliminarRutina(props.item._id, sesion.data.token, setDisable));
-  }
+  };
+
+  const translateX = useSharedValue(0);
+
+  //start of animation definition
+  const panEvent = useAnimatedGestureHandler(
+    {
+      onStart: (event, context) => {
+        context.translateX = translateX.value;
+      },
+      onActive: (event, context) => {
+        translateX.value = event.translationX + context.translateX;
+      },
+      onEnd: (event) => {
+        translateX.value = withSpring(0);
+        runOnJS(abrirRutina)();
+      },
+    },
+    []
+  );
+  //end of animation definition
 
   const transformStyle = useAnimatedStyle(() => {
     return {
