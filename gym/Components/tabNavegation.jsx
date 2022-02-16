@@ -5,12 +5,6 @@ import RutinaSeleccionada from "./usuarioLogeado/elementos/rutina";
 import EntrenamientosRealizados from "./usuarioLogeado/EntrenamientosR";
 import { NavigationContainer } from "@react-navigation/native";
 import Pefil from "./usuarioLogeado/perfil";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPersonWalking,
-  faUser,
-  faClockRotateLeft,
-} from "@fortawesome/free-solid-svg-icons";
 import { View } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 

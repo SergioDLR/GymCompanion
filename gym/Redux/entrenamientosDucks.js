@@ -1,5 +1,6 @@
 import axios from "axios";
-const direccionDeConexion = "http://192.168.1.48:3000";
+import path from "./path";
+const direccionDeConexion = path;
 const configDuck = {
   entrenamientosRealizados: [{}],
   entrenamientoActual: {},

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Text, Button } from "react-native-elements";
-import logo from "../assets/images/LogoWhite.png";
+import Rutina from "./usuarioLogeado/elementos/rutinas";
 import styles from "../styles/main";
 import { reanudarSession } from "../Redux/sesionDucks";
 import { useDispatch } from "react-redux";

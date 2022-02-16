@@ -1,6 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const direccionDeConexion = "http://192.168.1.48:3000";
+import path from "./path";
+const direccionDeConexion = path;
 import { cargarAlerta } from "./alertDucks";
 import { CommonActions } from "@react-navigation/native";
 const configDuck = {

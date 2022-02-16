@@ -1,7 +1,8 @@
 import axios from "axios";
 import { cargarAlerta } from "../alertDucks";
 
-const direccionDeConexion = "http://192.168.1.48:3000";
+import path from "../path";
+const direccionDeConexion = path;
 const configDuck = {
   routines: {},
   seleccionada: {},
