@@ -1,13 +1,6 @@
 import React, { useEffect } from "react";
-import {
-  SafeAreaView,
-  View,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import { Text, Button } from "react-native-elements";
-import Rutina from "./usuarioLogeado/elementos/rutinas";
+import { SafeAreaView, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text } from "react-native-elements";
 import styles from "../styles/main";
 import { reanudarSession } from "../Redux/sesionDucks";
 import { useDispatch } from "react-redux";

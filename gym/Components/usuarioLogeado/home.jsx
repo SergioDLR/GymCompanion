@@ -5,18 +5,16 @@ import {
   SafeAreaView,
   Modal,
   StyleSheet,
-  Touchable,
-  TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
-import { Button, Input, Text, Card, FAB, Overlay } from "react-native-elements";
+import { Button, Input, Text, FAB } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import { cargarRutinas, crearRutina } from "../../Redux/routines/routinesDucks";
 import gStyles from "../../styles/main";
 import Rutina from "./elementos/rutinas";
-
-import Icon from "react-native-vector-icons/FontAwesome";
+import tw from "tailwind-react-native-classnames";
 import { cargarAlerta } from "../../Redux/alertDucks";
+import Icon from "./elementos/Icon";
+import PlusIcon from "../../assets/images/icons/plus.png";
 
 const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -90,7 +88,7 @@ const Home = ({ navigation }) => {
             </View>
           </Modal>
           <View>
-            <Text p style={{ color: "#fff" }}>
+            <Text h4 style={tw`text-center text-white mt-2`}>
               Tus rutinas:
             </Text>
           </View>
@@ -107,7 +105,7 @@ const Home = ({ navigation }) => {
         </View>
 
         <FAB
-          icon={<Icon name="plus" size={15} color="black" />}
+          icon={<Icon img={PlusIcon} tamaño={"5"} />}
           buttonStyle={{ borderRadius: 30 }}
           placement="right"
           onPress={() => setModalVisible(true)}

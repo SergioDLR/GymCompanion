@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, SafeAreaView, TouchableOpacity, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { registrarUsuario, iniciarSesion } from "../Redux/sesionDucks";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Text, Button } from "react-native-elements";
 
+import { Input, Text, Button } from "react-native-elements";
+import embelopeIcon from "../assets/images/icons/envelope.png";
+import Icon from "./usuarioLogeado/elementos/Icon";
+import Lock from "../assets/images/icons/lock.png";
 import styles from "../styles/main";
 
 const Login = ({ navigation }) => {
@@ -27,14 +29,14 @@ const Login = ({ navigation }) => {
         <Input
           placeholder="Ingresa tu email"
           style={stylesMain.inputLabel}
-          leftIcon={{ type: "font-awesome", name: "envelope", color: "#fff" }}
+          leftIcon={<Icon img={embelopeIcon} tamaño={"3"}></Icon>}
           onChangeText={(mail) => setMail(mail)}
           defaultValue={mail}
         />
         <Input
-          placeholder="ingresa tu contraseña"
+          placeholder="Ingresa tu contraseña"
           style={stylesMain.inputLabel}
-          leftIcon={{ type: "font-awesome", name: "lock", color: "#fff" }}
+          leftIcon={<Icon img={Lock} tamaño={"3"}></Icon>}
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
           defaultValue={password}

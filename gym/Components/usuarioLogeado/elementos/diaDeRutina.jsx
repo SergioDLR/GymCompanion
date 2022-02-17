@@ -76,7 +76,9 @@ const DiaDeRutina = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Ingresa el nombre de la rutina</Text>
+            <Text style={styles.modalText}>
+              Ingresa el nombre del ejercicio
+            </Text>
             <Input
               placeholder="Nombre ejercicio"
               onChangeText={(nombreEjercicio) =>

@@ -1,12 +1,12 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./usuarioLogeado/home";
-import RutinaSeleccionada from "./usuarioLogeado/elementos/rutina";
 import EntrenamientosRealizados from "./usuarioLogeado/EntrenamientosR";
-import { NavigationContainer } from "@react-navigation/native";
 import Pefil from "./usuarioLogeado/perfil";
-import { View } from "react-native";
-import { Icon } from "react-native-elements/dist/icons/Icon";
+import Icon from "./usuarioLogeado/elementos/Icon";
+import ClockPast from "../assets/images/icons/time-past.png";
+import profileIcon from "../assets/images/icons/user.png";
+import runningIcon from "../assets/images/icons/running.png";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
@@ -17,14 +17,14 @@ const TabNavigation = () => {
           let iconName;
 
           if (route.name === "Rutinas") {
-            iconName = focused ? "running" : "running";
+            iconName = focused ? runningIcon : runningIcon;
           } else if (route.name === "Perfil") {
-            iconName = focused ? "user-circle" : "user-circle";
+            iconName = focused ? profileIcon : profileIcon;
           } else if (route.name === "Entrenamientos") {
-            iconName = focused ? "clock" : "clock";
+            iconName = focused ? ClockPast : ClockPast;
           }
 
-          return <Icon name={iconName} type="font-awesome-5" />;
+          return <Icon img={iconName} tamaño={"4"} />;
         },
       })}
     >
