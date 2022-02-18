@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Modal,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { Button, Input, Text, FAB } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,6 +25,7 @@ const Home = ({ navigation }) => {
   const rutinas = useSelector((state) => state.routines.routines);
   const sesion = useSelector((state) => state.sesion.sesion);
   const [cargarRutinasLoading, setLoading] = useState(true);
+
   useEffect(() => {
     dispatch(cargarRutinas(sesion.data.token, setLoading));
   }, []);
@@ -37,6 +39,7 @@ const Home = ({ navigation }) => {
       dispatch(cargarAlerta("Ingresa un nombre mayor a 3 caracteres"));
     }
   }
+
   return (
     <SafeAreaView style={gStyles.Container2}>
       <ScrollView contentContainerStyle={{ flex: 1 }}>
@@ -92,18 +95,8 @@ const Home = ({ navigation }) => {
               Tus rutinas:
             </Text>
           </View>
-          <View style={styles.rutinasStyle}>
-            {rutinas.length > 0 &&
-              rutinas.map((element, index) => (
-                <Rutina
-                  key={index}
-                  item={element}
-                  navigation={navigation}
-                ></Rutina>
-              ))}
-          </View>
         </View>
-
+        {renderRoutines(rutinas, cargarRutinasLoading, navigation)}
         <FAB
           icon={<Icon img={PlusIcon} tamaño={"5"} />}
           buttonStyle={{ borderRadius: 30 }}
@@ -115,6 +108,22 @@ const Home = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+
+const renderRoutines = (routines, cargo, navigation) => {
+  if (cargo) {
+    return <ActivityIndicator size="large" />;
+  } else {
+    return (
+      <View style={styles.rutinasStyle}>
+        {routines.length > 0 &&
+          routines.map((element, index) => (
+            <Rutina key={index} item={element} navigation={navigation}></Rutina>
+          ))}
+      </View>
+    );
+  }
+};
+
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

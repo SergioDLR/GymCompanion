@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import { Text } from "react-native-elements";
 import { seleccionarRutina } from "../../../Redux/routines/routinesDucks";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,31 +59,48 @@ const Rutina = (props) => {
   //end of animation definition
 
   const transformStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }],
-    };
+    if (disable) {
+      return null;
+    } else {
+      return {
+        transform: [{ translateX: translateX.value }],
+      };
+    }
   });
   return (
     <GestureHandlerRootView style={{ flexGrow: 1 }}>
       <PanGestureHandler onGestureEvent={panEvent}>
         <Animated.View style={[tw`mt-4`, transformStyle]}>
-          <View style={tw`flex flex-row`}>
-            <View style={tw`m-auto bg-blue-700    rounded-lg p-4 `}>
-              <Icon img={EyeIcon} tamaño={6} style={tw`m-auto  w-8 mr-10`} />
-            </View>
-            <View style={tw`w-full bg-white text-center rounded-lg py-4 z-10`}>
-              <Text style={tw`text-center m-0 p-0`}>
-                Nombre de la rutina: {props.item.name}
-              </Text>
-            </View>
-            <View style={tw`m-auto   bg-red-700 rounded-lg p-4 `}>
-              <Icon img={TrashIcon} tamaño={6} style={tw`m-auto ml-10  w-8`} />
-            </View>
-          </View>
+          {renderRutina(props.item.name, disable)}
         </Animated.View>
       </PanGestureHandler>
     </GestureHandlerRootView>
   );
+};
+const renderRutina = (nombre, disable) => {
+  if (disable) {
+    return (
+      <View style={tw`w-full bg-white text-center rounded-lg py-4 z-10`}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  } else {
+    return (
+      <View style={tw`flex flex-row`}>
+        <View style={tw`m-auto bg-blue-700    rounded-lg p-4 `}>
+          <Icon img={EyeIcon} tamaño={6} style={tw`m-auto  w-8 mr-10`} />
+        </View>
+        <View style={tw`w-full bg-white text-center rounded-lg py-4 z-10`}>
+          <Text style={tw`text-center m-0 p-0`}>
+            Nombre de la rutina: {nombre}
+          </Text>
+        </View>
+        <View style={tw`m-auto   bg-red-700 rounded-lg p-4 `}>
+          <Icon img={TrashIcon} tamaño={6} style={tw`m-auto ml-10  w-8`} />
+        </View>
+      </View>
+    );
+  }
 };
 
 export default Rutina;

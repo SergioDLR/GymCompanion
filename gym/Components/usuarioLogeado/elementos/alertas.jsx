@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Overlay, Button } from "react-native-elements";
+import Modal from "react-native-modal";
 import { useSelector, useDispatch } from "react-redux";
 import { esconderAlerta } from "../../../Redux/alertDucks";
 
@@ -9,19 +10,17 @@ const Alerta = () => {
   const dispatch = useDispatch();
   if (alertState.visible) {
     return (
-      <Overlay
-        onBackdropPress={() => dispatch(esconderAlerta())}
-        overlayStyle={{ padding: 30 }}
-        visible={alertState.visible}
-      >
-        <Text>{alertState.mensaje}</Text>
-        <View style={{ marginTop: 20 }}>
-          <Button
-            title={"Cerrar"}
-            onPress={() => dispatch(esconderAlerta())}
-          ></Button>
-        </View>
-      </Overlay>
+      <View style={{ flex: 1 }}>
+        <Modal isVisible={alertState.visible}>
+          <View style={{ flex: 1 }}>
+            <Text>Hello!</Text>
+            <Button
+              title="Hide modal"
+              onPress={() => dispatch(esconderAlerta())}
+            />
+          </View>
+        </Modal>
+      </View>
     );
   } else {
     return false;
