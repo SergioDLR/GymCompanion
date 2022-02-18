@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Modal } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,14 +13,13 @@ const RutinaSeleccionada = ({ navigation }) => {
   const [nombreRutina, setNombreRutina] = useState("");
   const sesion = useSelector((state) => state.sesion.sesion);
 
-  const [rutina, setRutina] = useState(
-    useSelector((state) => state.routines.seleccionada)
-  );
+  const rutina = useSelector((state) => state.routines.seleccionada);
 
   function onSubmitDia() {
     setModalVisible(!modalVisible);
     dispatch(crearDia(nombreRutina, sesion.data.token, rutina._id));
   }
+
   const mapDays = () => {
     if (rutina.entrenamientoDias.length > 0) {
       return rutina.entrenamientoDias.map((e) => (
@@ -37,6 +36,7 @@ const RutinaSeleccionada = ({ navigation }) => {
       );
     }
   };
+
   return (
     <View style={style.Container}>
       <View>

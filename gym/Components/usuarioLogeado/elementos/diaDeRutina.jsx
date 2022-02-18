@@ -60,10 +60,6 @@ const DiaDeRutina = (props) => {
               )
             }
           />
-          <Button
-            onPress={() => setModalVisible(true)}
-            icon={<Icon name="plus" size={15} color="white" />}
-          />
         </View>
       </Card>
       <Modal

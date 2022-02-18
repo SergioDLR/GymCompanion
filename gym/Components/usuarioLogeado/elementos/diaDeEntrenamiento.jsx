@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Button } from "react-native";
 import { Text } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import Ejercicio from "./ejercicio";
@@ -7,8 +7,8 @@ import style from "../../../styles/main";
 
 const DiaDeRutinaDisplay = ({ navigation }) => {
   const dispatch = useDispatch();
-  const dia = useSelector(state => state.routines.seleccionarDia);
-  const sesion = useSelector(state => state.sesion.sesion);
+  const dia = useSelector((state) => state.routines.seleccionarDia);
+  const sesion = useSelector((state) => state.sesion.sesion);
   return (
     <View style={style.Container3}>
       <View style={{ padding: 30 }}>
@@ -20,9 +20,12 @@ const DiaDeRutinaDisplay = ({ navigation }) => {
         </Text>
       </View>
       {dia.ejercicios.length > 0 &&
-        dia.ejercicios.map(e => (
+        dia.ejercicios.map((e) => (
           <Ejercicio item={e} sesion={sesion} dia={dia} key={e._id}></Ejercicio>
         ))}
+      <Button onPress={() => navigation.navigate("AgregarEjercicios")}>
+        dsadsa
+      </Button>
     </View>
   );
 };

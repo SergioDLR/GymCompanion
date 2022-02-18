@@ -16,6 +16,7 @@ import tw from "tailwind-react-native-classnames";
 import { cargarAlerta } from "../../Redux/alertDucks";
 import Icon from "./elementos/Icon";
 import PlusIcon from "../../assets/images/icons/plus.png";
+import { useIsFocused } from "@react-navigation/native";
 
 const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,10 +26,10 @@ const Home = ({ navigation }) => {
   const rutinas = useSelector((state) => state.routines.routines);
   const sesion = useSelector((state) => state.sesion.sesion);
   const [cargarRutinasLoading, setLoading] = useState(true);
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     dispatch(cargarRutinas(sesion.data.token, setLoading));
-  }, []);
+  }, [isFocused]);
   function onSubmitRutina() {
     if (nombreRutina.length > 3) {
       setLoadingCreate(true);

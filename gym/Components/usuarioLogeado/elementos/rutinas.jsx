@@ -25,12 +25,16 @@ const Rutina = (props) => {
   const [disable, setDisable] = useState(false);
 
   const abrirRutina = () => {
-    dispatch(seleccionarRutina(props.item));
-    props.navigation.navigate("rutinaSeleccionada");
+    if (!disable) {
+      dispatch(seleccionarRutina(props.item));
+      props.navigation.navigate("rutinaSeleccionada");
+    }
   };
   const eliminar = () => {
-    setDisable(true);
-    dispatch(eliminarRutina(props.item._id, sesion.data.token, setDisable));
+    if (!disable) {
+      setDisable(true);
+      dispatch(eliminarRutina(props.item._id, sesion.data.token, setDisable));
+    }
   };
 
   const translateX = useSharedValue(0);
@@ -59,13 +63,9 @@ const Rutina = (props) => {
   //end of animation definition
 
   const transformStyle = useAnimatedStyle(() => {
-    if (disable) {
-      return null;
-    } else {
-      return {
-        transform: [{ translateX: translateX.value }],
-      };
-    }
+    return {
+      transform: [{ translateX: translateX.value }],
+    };
   });
   return (
     <GestureHandlerRootView style={{ flexGrow: 1 }}>
@@ -80,8 +80,8 @@ const Rutina = (props) => {
 const renderRutina = (nombre, disable) => {
   if (disable) {
     return (
-      <View style={tw`w-full bg-white text-center rounded-lg py-4 z-10`}>
-        <ActivityIndicator size="large" />
+      <View style={tw`w-full bg-gray-200 text-center rounded-lg py-4 z-10`}>
+        <ActivityIndicator size="small" color={"red"} />
       </View>
     );
   } else {
