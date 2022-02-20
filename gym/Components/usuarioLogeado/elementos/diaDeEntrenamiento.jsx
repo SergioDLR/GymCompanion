@@ -23,9 +23,10 @@ const DiaDeRutinaDisplay = ({ navigation }) => {
         dia.ejercicios.map((e) => (
           <Ejercicio item={e} sesion={sesion} dia={dia} key={e._id}></Ejercicio>
         ))}
-      <Button onPress={() => navigation.navigate("AgregarEjercicios")}>
-        dsadsa
-      </Button>
+      <Button
+        onPress={() => navigation.navigate("AgregarEjercicios")}
+        title="agregar un dia"
+      />
     </View>
   );
 };
