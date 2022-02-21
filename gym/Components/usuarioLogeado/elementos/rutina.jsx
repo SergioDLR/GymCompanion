@@ -29,15 +29,11 @@ const RutinaSeleccionada = ({ navigation }) => {
   const mapDays = () => {
     if (rutina.entrenamientoDias.length > 0) {
       return rutina.entrenamientoDias.map((e) => (
-        <View>
+        <View key={e._id}>
           <Text h4 style={tw`text-white`}>
             Dias de entreamiento:
           </Text>
-          <DiaDeRutina
-            item={e}
-            key={e._id}
-            navigation={navigation}
-          ></DiaDeRutina>
+          <DiaDeRutina item={e} navigation={navigation}></DiaDeRutina>
         </View>
       ));
     } else {
