@@ -17,6 +17,7 @@ import { cargarAlerta } from "../../Redux/alertDucks";
 import Icon from "./elementos/Icon";
 import PlusIcon from "../../assets/images/icons/plus.png";
 import { useIsFocused } from "@react-navigation/native";
+import TarjetaLateral from "./elementos/TarjetaLateral";
 
 const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -118,7 +119,11 @@ const renderRoutines = (routines, cargo, navigation) => {
       <View style={styles.rutinasStyle}>
         {routines.length > 0 &&
           routines.map((element, index) => (
-            <Rutina key={index} item={element} navigation={navigation}></Rutina>
+            <TarjetaLateral
+              key={index}
+              item={element}
+              navigation={navigation}
+            ></TarjetaLateral>
           ))}
       </View>
     );

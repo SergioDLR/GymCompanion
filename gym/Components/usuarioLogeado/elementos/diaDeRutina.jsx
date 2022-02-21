@@ -1,110 +1,38 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
-import { Input, Button, Card } from "react-native-elements";
+import { View, StyleSheet } from "react-native";
+
 import { useDispatch, useSelector } from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { crearEjercicio } from "../../../Redux/routines/routinesDucks";
+
 import { eliminarDiaDeRutina } from "../../../Redux/routines/routinesDucks";
 import { seleccionarDia } from "../../../Redux/routines/routinesDucks";
-import global from "../../../styles/main";
+
+import Rutina from "./rutinas";
 const DiaDeRutina = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nombreEjercicio, setNombreEjercicio] = useState("");
   const [cantRepeticiones, setRepeticiones] = useState();
   const [cantSeries, setSeries] = useState();
+  const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
   const sesion = useSelector((state) => state.sesion.sesion);
 
-  function onSubmit() {
-    alert("ejercicio creado");
-    setModalVisible(!modalVisible);
+  const eliminarDia = () => {
     dispatch(
-      crearEjercicio(
-        nombreEjercicio,
-        sesion.data.token,
-        props.item._id,
-        cantRepeticiones,
-        cantSeries
-      )
+      eliminarDiaDeRutina(props.item, props.item._id, sesion.data.token)
     );
-  }
-  function abrirDia() {
+    setDisable(true);
+  };
+  const abrirDia = () => {
     dispatch(seleccionarDia(props.item));
     props.navigation.navigate("Ejercicios");
-  }
+  };
   return (
-    <View>
-      <Card containerStyle={{ borderRadius: 10 }}>
-        <Text
-          style={[
-            global.textButton,
-            { textAlign: "center", marginTop: 10, marginBottom: 10 },
-          ]}
-        >
-          {props.item.nombre}
-        </Text>
-        <View style={styles.containerCard}>
-          <Button
-            icon={<Icon name="eye" size={15} color="white" />}
-            onPress={() => abrirDia()}
-          />
-          <Button
-            icon={<Icon name="trash" size={15} color="white" />}
-            onPress={() =>
-              dispatch(
-                eliminarDiaDeRutina(
-                  props.item,
-                  props.item._id,
-                  sesion.data.token
-                )
-              )
-            }
-          />
-        </View>
-      </Card>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Ingresa el nombre del ejercicio
-            </Text>
-            <Input
-              placeholder="Nombre ejercicio"
-              onChangeText={(nombreEjercicio) =>
-                setNombreEjercicio(nombreEjercicio)
-              }
-            />
-            <Input
-              placeholder="Cantidad de series"
-              onChangeText={(cantRepeticiones) =>
-                setRepeticiones(cantRepeticiones)
-              }
-            />
-            <Input
-              placeholder="Cantidad de repeticiones"
-              onChangeText={(cantSeries) => setSeries(cantSeries)}
-            />
-            <Button
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => onSubmit()}
-              title="Aceptar"
-            ></Button>
-            <Button
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-              title="Cancelar"
-            ></Button>
-          </View>
-        </View>
-      </Modal>
-    </View>
+    <Rutina
+      nombre={`nombre del dia : ${props.item.nombre}`}
+      disable={disable}
+      primeraFuncion={abrirDia}
+      segundaFuncion={eliminarDia}
+    />
   );
 };
 const styles = StyleSheet.create({

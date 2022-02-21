@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Modal } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { Button, Input } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { crearDia } from "../../../Redux/routines/routinesDucks";
@@ -23,7 +29,16 @@ const RutinaSeleccionada = ({ navigation }) => {
   const mapDays = () => {
     if (rutina.entrenamientoDias.length > 0) {
       return rutina.entrenamientoDias.map((e) => (
-        <DiaDeRutina item={e} key={e._id} navigation={navigation}></DiaDeRutina>
+        <View>
+          <Text h4 style={tw`text-white`}>
+            Dias de entreamiento:
+          </Text>
+          <DiaDeRutina
+            item={e}
+            key={e._id}
+            navigation={navigation}
+          ></DiaDeRutina>
+        </View>
       ));
     } else {
       return (
@@ -38,8 +53,8 @@ const RutinaSeleccionada = ({ navigation }) => {
   };
 
   return (
-    <View style={style.Container}>
-      <View>
+    <SafeAreaView style={style.Container2}>
+      <ScrollView>
         {mapDays()}
         <View style={tw`m-auto`}>
           <Button
@@ -53,7 +68,7 @@ const RutinaSeleccionada = ({ navigation }) => {
             onPress={() => setModalVisible(true)}
           />
         </View>
-      </View>
+      </ScrollView>
 
       <Modal
         animationType="slide"
@@ -85,7 +100,7 @@ const RutinaSeleccionada = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
