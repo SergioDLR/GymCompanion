@@ -111,14 +111,14 @@ export const crearDia =
     );
     if (data.status == 200) {
       dispatch({ type: CREAR_DIA, payload: data.data.rutinaGuardada });
-      dispatch(cargarAlerta("Se creo con el dia"));
+      dispatch(cargarAlerta("Se creo con exito el dia"));
     } else {
       dispatch(cargarAlerta("Ocurrio un error"));
     }
   };
 
 export const crearEjercicio =
-  (nombre, permisions, id, repeticiones, series) => async (dispatch) => {
+  (permisions, id, nombre, repeticiones, series) => async (dispatch) => {
     const ejercicio = {
       nombre,
       repeticiones,
@@ -136,6 +136,9 @@ export const crearEjercicio =
         type: CREAR_EJERCICIO,
         payload: data.data.rutinasActualizadas,
       });
+      dispatch(cargarAlerta("Se agrego con exito el ejercicio"));
+      dispatch(recargarDia(id, permisions));
+      return true;
     } else {
       dispatch(cargarAlerta("Ocurrio un error"));
     }
@@ -208,5 +211,19 @@ export const seleccionarDia = (dia) => (dispatch) => {
   dispatch({
     type: SELECCIONAR_DIA,
     payload: dia,
+  });
+};
+
+export const recargarDia = (diaID, permisions) => async (dispatch) => {
+  const dia = await axios.get(
+    direccionDeConexion + "/api/routinesDay/" + diaID,
+    {
+      data: diaID,
+      headers: { "auth-token": permisions },
+    }
+  );
+  dispatch({
+    type: SELECCIONAR_DIA,
+    payload: dia.data,
   });
 };
