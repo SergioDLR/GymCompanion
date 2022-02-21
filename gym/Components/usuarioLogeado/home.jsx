@@ -18,6 +18,7 @@ import Icon from "./elementos/Icon";
 import PlusIcon from "../../assets/images/icons/plus.png";
 import { useIsFocused } from "@react-navigation/native";
 import TarjetaLateral from "./elementos/TarjetaLateral";
+import RelojTemporizador from "../IniciarEntrenamiento/RelojTemporizador";
 
 const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,6 +46,7 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={gStyles.Container2}>
       <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <RelojTemporizador></RelojTemporizador>
         <View style={{ marginTop: 40 }}>
           <Modal
             animationType="slide"

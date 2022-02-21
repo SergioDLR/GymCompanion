@@ -29,6 +29,8 @@ const TarjetaLateral = (props) => {
         disable={disable}
         primeraFuncion={abrirRutina}
         segundaFuncion={eliminar}
+        iniciarEntrenamiento={props?.iniciarEntrenamiento || false}
+        terceraFuncion={false}
       />
     </View>
   );

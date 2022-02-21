@@ -26,12 +26,19 @@ const DiaDeRutina = (props) => {
     dispatch(seleccionarDia(props.item));
     props.navigation.navigate("Ejercicios");
   };
+  const IniciarEntrenamineto = () => {
+    props.navigation.navigate("EntrenandoConRutina");
+    dispatch(seleccionarDia(props.item));
+  };
+
   return (
     <Rutina
       nombre={`nombre del dia : ${props.item.nombre}`}
       disable={disable}
       primeraFuncion={abrirDia}
       segundaFuncion={eliminarDia}
+      iniciarEntrenamiento={true}
+      terceraFuncion={IniciarEntrenamineto}
     />
   );
 };

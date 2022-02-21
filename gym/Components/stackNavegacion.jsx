@@ -11,6 +11,7 @@ import AgregarEjercicios from "./usuarioLogeado/Pantallas/AgregarEjercicios";
 import * as React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import EntrenandoConRutina from "./IniciarEntrenamiento/EntrenandoConRutina";
 
 const StackNavigation = () => {
   const Stack = createStackNavigator();
@@ -50,6 +51,10 @@ const StackNavigation = () => {
         />
         <Stack.Screen name="AgregarEjercicios" component={AgregarEjercicios} />
         <Stack.Screen name="Ejercicios" component={DiaDeRutinaDisplay} />
+        <Stack.Screen
+          name="EntrenandoConRutina"
+          component={EntrenandoConRutina}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

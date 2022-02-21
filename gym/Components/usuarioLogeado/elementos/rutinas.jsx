@@ -5,6 +5,7 @@ import tw from "tailwind-react-native-classnames";
 import {
   GestureHandlerRootView,
   PanGestureHandler,
+  TouchableOpacity,
 } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedGestureHandler,
@@ -16,6 +17,7 @@ import Animated, {
 import Icon from "./Icon";
 import TrashIcon from "../../../assets/images/icons/trash.png";
 import EyeIcon from "../../../assets/images/icons/eye.png";
+import { Button } from "react-native-elements/dist/buttons/Button";
 const Rutina = (props) => {
   const translateX = useSharedValue(0);
 
@@ -51,13 +53,23 @@ const Rutina = (props) => {
     <GestureHandlerRootView style={{ flexGrow: 1 }}>
       <PanGestureHandler onGestureEvent={panEvent}>
         <Animated.View style={[tw`mt-4`, transformStyle]}>
-          {renderRutina(props.nombre, props.disable)}
+          {renderRutina(
+            props.nombre,
+            props.disable,
+            props.iniciarEntrenamiento,
+            props.terceraFuncion
+          )}
         </Animated.View>
       </PanGestureHandler>
     </GestureHandlerRootView>
   );
 };
-const renderRutina = (nombre, disable) => {
+const renderRutina = (
+  nombre,
+  disable,
+  iniciarEntrenamiento,
+  terceraFuncion
+) => {
   if (disable) {
     return (
       <View style={tw`w-full bg-gray-200 text-center rounded-lg py-4 z-10`}>
@@ -70,8 +82,15 @@ const renderRutina = (nombre, disable) => {
         <View style={tw`m-auto bg-blue-700    rounded-lg p-4 `}>
           <Icon img={EyeIcon} tamaño={6} style={tw`m-auto  w-8 mr-10`} />
         </View>
-        <View style={tw`w-full bg-white text-center rounded-lg py-4 z-10`}>
-          <Text style={tw`text-center m-0 p-0`}>{nombre}</Text>
+        <View style={tw`w-full bg-white text-center rounded-lg py-4 z-10 `}>
+          <Text style={tw`text-center m-0 p-0`}>
+            {nombre}
+            {iniciarEntrenamiento && (
+              <TouchableOpacity onPress={() => terceraFuncion()}>
+                <Text>Iniciar</Text>
+              </TouchableOpacity>
+            )}{" "}
+          </Text>
         </View>
         <View style={tw`m-auto   bg-red-700 rounded-lg p-4 `}>
           <Icon img={TrashIcon} tamaño={6} style={tw`m-auto ml-10  w-8`} />
